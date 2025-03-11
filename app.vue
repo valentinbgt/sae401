@@ -1,8 +1,10 @@
 <template>
   <div>
     <NuxtLayout>
-      <NavMenu />
-      <NuxtPage />
+      <div class="flex">
+        <NavMenu />
+        <NuxtPage />
+      </div>
     </NuxtLayout>
   </div>
 </template>
