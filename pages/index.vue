@@ -1,1 +1,3 @@
-<template>Welcome to the dashboard</template>
+<template>
+  <h1>Bienvenue sur le dashboard !</h1>
+</template>
