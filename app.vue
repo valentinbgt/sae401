@@ -3,7 +3,9 @@
     <NuxtLayout>
       <div class="flex">
         <NavMenu />
-        <NuxtPage />
+        <div class="mx-12 w-full">
+          <NuxtPage />
+        </div>
       </div>
     </NuxtLayout>
   </div>
