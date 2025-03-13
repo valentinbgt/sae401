@@ -19,11 +19,11 @@ permissions:
 
 jobs:
   trigger:
-    runs-on: debian-latest
+    runs-on: ubuntu-latest
     steps:
-      - name: APT update
-        run: apt update
-      - name: Install WGET
-        run: apt install wget -y
+      #      - name: APT update
+      #        run: apt update
+      #      - name: Install WGET
+      #        run: apt install wget -y
       - name: Trigger n8n
         run: wget https://n8n.beauget.fr/webhook/fe7ab87f-bae2-461f-8f3e-6091d45379a1
