@@ -7,7 +7,8 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   app: {
     head: {
-      title: "Cahier de textes",
+      title: "Agenda",
+      link: [{ rel: "icon", type: "image/x-icon", href: "/icon.svg" }],
     },
   },
   css: ["~/assets/css/main.css"],
