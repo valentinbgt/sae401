@@ -4,24 +4,113 @@
     class="max-w-6xl h-96 border rounded-4xl py-6 flex items-center flex-col"
   >
     <h2 class="font-bold text-2xl">Prochains rendus</h2>
-    <Separator>Lundi 24 mars</Separator>
-    <TimeSlot
-      v-for="slot in slots"
-      :time="slot.time"
-      :title="slot.title"
-      :sub-title="slot.subTitle"
-    />
+    <div
+      v-for="(dayData, i) in slots"
+      :key="i"
+      class="w-full flex flex-col items-center"
+    >
+      <Separator>{{ Object.keys(dayData)[0] }}</Separator>
+      <TimeSlot
+        v-for="(slot, index) in dayData[Object.keys(dayData)[0]].daySlots"
+        :key="index"
+        :time="slot.time"
+        :title="slot.title"
+        :sub-title="slot.subTitle"
+      />
+    </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
 
-const slots = ref([
+const slots = ref([]);
+
+const data = [
   {
-    time: "12h30",
-    title: "WR412 - Rendre les travaux sur le VPS",
-    subTitle: "R. Delon | Rendu sur VPS",
+    timestamp: 1742819400,
+    module: "WR412",
+    title: "Rendre les travaux sur le VPS",
+    prof: "R. Delon",
+    lieu: "Rendu sur VPS",
   },
-]);
+  {
+    timestamp: 1742835600,
+    module: "WS401",
+    title: "Rendre le MCD/MLD",
+    prof: "D. Annebicque",
+    lieu: "Joindre au document initial",
+  },
+  {
+    timestamp: 1743119940,
+    module: "WR409",
+    title: "Rendre la maquette Figma",
+    prof: "A. Loizon",
+    lieu: "Rendu Moodle",
+  },
+  {
+    timestamp: 1743926400,
+    module: "WR408",
+    title: "Partiel",
+    prof: "P. Gommery",
+    lieu: "Partiel",
+  },
+].sort((a, b) => a.timestamp - b.timestamp);
+
+const timestampToDate = (timestamp) => {
+  const date = new Date(timestamp * 1000); // Convertir en millisecondes
+  let formattedDate = date.toLocaleDateString("fr-FR", {
+    weekday: "long",
+    day: "2-digit",
+    month: "long",
+  });
+
+  return formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
+};
+
+const timestampToTime = (timestamp) => {
+  const date = new Date(timestamp * 1000); // Convertir en millisecondes
+  return date
+    .toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })
+    .replace(":", "h");
+};
+
+let lastDay = "";
+data.forEach((e) => {
+  let time,
+    title,
+    subTitle = "";
+
+  time = timestampToTime(e.timestamp);
+  title = `${e.module} - ${e.title}`;
+  subTitle = `${e.prof} | ${e.lieu}`;
+
+  let elementDay = timestampToDate(e.timestamp);
+
+  if (elementDay != lastDay) {
+    // Create new day entry
+    slots.value.push({
+      [elementDay]: {
+        daySlots: [
+          {
+            time,
+            title,
+            subTitle,
+          },
+        ],
+      },
+    });
+    lastDay = elementDay;
+  } else {
+    // Add to existing day
+    const lastSlot = slots.value[slots.value.length - 1];
+    lastSlot[lastDay].daySlots.push({
+      time,
+      title,
+      subTitle,
+    });
+  }
+});
+
+console.log(slots.value);
 </script>
