@@ -6,9 +6,22 @@
     <h2 class="font-bold text-2xl">Prochains rendus</h2>
     <Separator>Lundi 24 mars</Separator>
     <TimeSlot
-      time="12h30"
-      title="WR412 - Rendre les travaux sur le VPS"
-      sub-title="R. Delon | Rendu sur VPS"
+      v-for="slot in slots"
+      :time="slot.time"
+      :title="slot.title"
+      :sub-title="slot.subTitle"
     />
   </div>
 </template>
+
+<script setup>
+import { ref } from "vue";
+
+const slots = ref([
+  {
+    time: "12h30",
+    title: "WR412 - Rendre les travaux sur le VPS",
+    subTitle: "R. Delon | Rendu sur VPS",
+  },
+]);
+</script>
