@@ -19,7 +19,7 @@ permissions:
 
 jobs:
   trigger:
-    runs-on: debian-slim
+    runs-on: debian-latest
     steps:
       - name: APT update
         run: apt update
