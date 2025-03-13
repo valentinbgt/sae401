@@ -1,5 +1,5 @@
 <template>
-  <TopNav :notif="true">Dashboard - test</TopNav>
+  <TopNav :notif="true">Dashboard</TopNav>
   <div
     class="max-w-6xl h-96 border rounded-4xl py-6 flex items-center flex-col"
   >
