@@ -1,6 +1,6 @@
 <template>
   <TopNav :notif="true">Tableau de bord</TopNav>
-  <div class="grid grid-cols-3 gap-8 grid-rows-2 h-9/12">
+  <div class="grid grid-cols-3 gap-8 grid-rows-2">
     <div
       class="border rounded-4xl py-6 flex items-center flex-col col-span-2 row-span-2"
     >
@@ -19,12 +19,20 @@
           :sub-title="slot.subTitle"
         />
       </div>
+      <div class="mt-2 h-8 w-full">
+        <div class="w-full h-full flex justify-center items-center">
+          <div class="w-11/12 flex items-center justify-between">
+            <span class="text-lg font-medium"><- page précédente</span>
+            <span class="text-lg font-medium">page suivante -></span>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="border rounded-4xl py-6 flex items-center flex-col">
       <h2 class="font-bold text-2xl">Calendrier</h2>
     </div>
     <div class="border rounded-4xl py-6 flex items-center flex-col">
-      <h2 class="font-bold text-2xl">Calendrier</h2>
+      <h2 class="font-bold text-2xl">Actions</h2>
     </div>
   </div>
 </template>
