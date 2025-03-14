@@ -1,22 +1,30 @@
 <template>
   <TopNav :notif="true">Tableau de bord</TopNav>
-  <div
-    class="max-w-6xl h-96 border rounded-4xl py-6 flex items-center flex-col"
-  >
-    <h2 class="font-bold text-2xl">Prochains rendus</h2>
+  <div class="grid grid-cols-3 gap-8 grid-rows-2 h-9/12">
     <div
-      v-for="(dayData, i) in slots"
-      :key="i"
-      class="w-full flex flex-col items-center"
+      class="border rounded-4xl py-6 flex items-center flex-col col-span-2 row-span-2"
     >
-      <Separator>{{ Object.keys(dayData)[0] }}</Separator>
-      <TimeSlot
-        v-for="(slot, index) in dayData[Object.keys(dayData)[0]].daySlots"
-        :key="index"
-        :time="slot.time"
-        :title="slot.title"
-        :sub-title="slot.subTitle"
-      />
+      <h2 class="font-bold text-2xl">Prochains rendus</h2>
+      <div
+        v-for="(dayData, i) in slots"
+        :key="i"
+        class="w-full flex flex-col items-center"
+      >
+        <Separator>{{ Object.keys(dayData)[0] }}</Separator>
+        <TimeSlot
+          v-for="(slot, index) in dayData[Object.keys(dayData)[0]].daySlots"
+          :key="index"
+          :time="slot.time"
+          :title="slot.title"
+          :sub-title="slot.subTitle"
+        />
+      </div>
+    </div>
+    <div class="border rounded-4xl py-6 flex items-center flex-col">
+      <h2 class="font-bold text-2xl">Calendrier</h2>
+    </div>
+    <div class="border rounded-4xl py-6 flex items-center flex-col">
+      <h2 class="font-bold text-2xl">Calendrier</h2>
     </div>
   </div>
 </template>
