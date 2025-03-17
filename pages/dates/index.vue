@@ -1,4 +1,4 @@
 <template>
   <TopNav :notif="true">Mes dates</TopNav>
-  dates
+  <NuxtLink to="dates/nouvelle"> Ajouter une date </NuxtLink>
 </template>
