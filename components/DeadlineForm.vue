@@ -54,16 +54,6 @@
         </select>
       </div>
 
-      <div>
-        <label for="attachments">Pièces jointes</label>
-        <input
-          type="file"
-          id="attachments"
-          multiple
-          @change="handleFileUpload"
-        />
-      </div>
-
       <button type="submit">Ajouter la deadline</button>
     </div>
   </form>
@@ -81,20 +71,37 @@ const formData = ref({
   prof: "",
   description: "",
   etendue: "TP",
-  attachments: [],
 });
-
-const handleFileUpload = (event) => {
-  formData.value.attachments = Array.from(event.target.files);
-};
 
 const submitForm = async () => {
   try {
-    // TODO: Implémenter la logique de vérification des doublons
-    // TODO: Envoyer les données à l'API
-    console.log(formData.value);
+    // Check les doublons
+    const duplicateCheck = await $fetch("/api/deadlines/check-duplicate", {
+      method: "POST",
+      body: {
+        module: formData.value.module,
+        timestamp: formData.value.timestamp,
+        etendue: formData.value.etendue,
+      },
+    });
+
+    if (duplicateCheck.exists) {
+      // TODO: Afficher une modal avec les 3 options
+      console.log("Deadline similaire trouvée:", duplicateCheck.deadline);
+      return;
+    }
+
+    // Création de la deadline
+    const response = await $fetch("/api/deadlines", {
+      method: "POST",
+      body: formData.value,
+    });
+
+    console.log("Deadline créée avec succès:", response);
+    // TODO: Rediriger vers la page des deadlines ou afficher un message de succès
   } catch (error) {
     console.error("Erreur lors de l'envoi du formulaire:", error);
+    // TODO: Afficher un message d'erreur à l'utilisateur
   }
 };
 </script>
