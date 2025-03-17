@@ -2,6 +2,10 @@
   <div class="my-10 h-12 flex items-center justify-between w-full">
     <h1 class="text-4xl font-bold"><slot /></h1>
     <div class="flex">
+      <NuxtLink to="/admin" class="pl-4">
+        <img src="/icons/admin.svg" />
+      </NuxtLink>
+
       <NotificationBell :new="notif"></NotificationBell>
 
       <NuxtLink to="/compte" class="pl-4">
