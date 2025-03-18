@@ -8,4 +8,4 @@ npx prisma migrate dev
 Pour générer les tables avec Prisma
 
 Accès PhpMyAdmin :
-http://localhost:81/
+http://localhost:8181/

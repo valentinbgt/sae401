@@ -8,7 +8,7 @@ services:
       MYSQL_USER: sae401
       MYSQL_PASSWORD: sae401
     ports:
-      - "3306:3306"
+      - "33066:3306"
     volumes:
       - mariadb_data:/var/lib/mysql
       - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
@@ -21,7 +21,7 @@ services:
       PMA_USER: sae401
       PMA_PASSWORD: sae401
     ports:
-      - "81:80"
+      - "8181:80"
     depends_on:
       - db
 
