@@ -22,8 +22,8 @@
       <div class="mt-2 h-8 w-full">
         <div class="w-full h-full flex justify-center items-center">
           <div class="w-11/12 flex items-center justify-between">
-            <span class="text-lg font-medium"><- page précédente</span>
-            <span class="text-lg font-medium">page suivante -></span>
+            <span class="text-lg font-medium"><- Page précédente</span>
+            <span class="text-lg font-medium">Page suivante -></span>
           </div>
         </div>
       </div>
@@ -32,7 +32,11 @@
       <h2 class="font-bold text-2xl">Calendrier</h2>
     </div>
     <div class="border rounded-4xl py-6 flex items-center flex-col">
-      <h2 class="font-bold text-2xl">Actions</h2>
+      <h2 class="font-bold text-2xl mb-12 ">Actions</h2>
+      <NuxtLink to="dates/nouvelle" class="w-full flex items-center flex-col ">
+        <div class=" text-white bg-indigo-500 rounded-2xl py-4 w-10/12 text-center font-bold text-xl ">Ajouter une date</div>
+      </NuxtLink>
+        <div class="text-white bg-indigo-500 rounded-2xl mt-4 py-4 w-10/12 text-center font-bold text-xl ">Historique</div>
     </div>
   </div>
 </template>
