@@ -1,4 +1,28 @@
 <template>
-  <TopNav :notif="true">Mon compte</TopNav>
-  compte
+  <TopNav :notif="true">Profile</TopNav>
+
+  <div class="absolute z-10 bottom-9 right-5">
+  <img src="../assets/images/logo_agenda.svg" alt="logo-agenda" class="w-100 bottom-9"/>
+  </div>
+  <div class=" flex items-center">
+    <img src="../assets/images/ppp.png" alt="photo de profil" />
+    <div class=" ml-8 ">
+      <H1 class="text-xl font-bold"> Nom de l'etudiant :  </H1>
+      <P class="mb-5"> Feret  </P>
+      <H1 class="text-xl font-bold"> Prenom de l'etudiant : </H1>
+      <p class="mb-5">  Jean Michel   </p>
+      <H1 class="text-xl font-bold"> Adresse de  l'etudiant :  </H1>
+      <p class="mb-5"> Valentin.fernet@etudiant.univ-reims.fr </p>
+    </div>
+  </div>
+
+  <div class="">
+    <p>Deconnextion</p>
+    </div>
+    
+
+
+  <div class="">
+    <Button class="bg-indigo-500 text-white p-5 rounded-[10px] ">Modifier</Button>
+  </div>
 </template>
