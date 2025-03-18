@@ -16,28 +16,49 @@
         />
       </div>
 
-      <button type="submit">Se connecter</button>
+      <div v-if="error" class="text-red-500">
+        {{ error }}
+      </div>
+
+      <button type="submit" :disabled="loading">
+        {{ loading ? "Connexion en cours..." : "Se connecter" }}
+      </button>
     </div>
   </form>
 </template>
 
 <script setup>
 import { ref } from "vue";
+import { useAuthStore } from "~/stores/auth";
+
+const authStore = useAuthStore();
+const router = useRouter();
 
 const formData = ref({
   email: "",
   password: "",
 });
 
+const loading = ref(false);
+const error = ref("");
+
 const submitLogin = async () => {
+  loading.value = true;
+  error.value = "";
+
   try {
-    const response = await $fetch("/api/auth/login", {
-      method: "POST",
-      body: formData.value,
-    });
-    console.log("Connexion réussie:", response);
+    const success = await authStore.login(formData.value);
+
+    if (success) {
+      router.push("/");
+    } else {
+      error.value = "Identifiants incorrects";
+    }
   } catch (error) {
     console.error("Erreur lors de la connexion:", error);
+    error.value = "Une erreur s'est produite lors de la connexion";
+  } finally {
+    loading.value = false;
   }
 };
 </script>
