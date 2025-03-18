@@ -26,31 +26,24 @@ model Deadline {
 }
 
 model User {
-  id            Int            @id @default(autoincrement())
-  statut        String
+  id            Int        @id @default(autoincrement())
+  prof          Boolean
+  admin         Boolean
   nom           String
   prenom        String
   email         String
   avertissement Int
   limite        Int
   deadlines     Deadline[]
-  enseignements Enseignement[]
+  Module        Module?    @relation(fields: [moduleId], references: [id])
+  moduleId      Int?
 }
 
 model Module {
-  id            Int            @id @default(autoincrement())
-  code          String         @unique
-  titre         String
-  semestre      Int
-  profs         String
-  deadlines     Deadline[]
-  enseignements Enseignement[]
-}
-
-model Enseignement {
-  id       Int    @id @default(autoincrement())
-  userId   Int
-  moduleId Int
-  user     User   @relation(fields: [userId], references: [id])
-  module   Module @relation(fields: [moduleId], references: [id])
+  id        Int        @id @default(autoincrement())
+  code      String     @unique
+  titre     String
+  semestre  Int
+  profs     User[]
+  deadlines Deadline[]
 }
