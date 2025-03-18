@@ -32,6 +32,7 @@ model User {
   nom           String
   prenom        String
   email         String
+  password      String
   avertissement Int
   limite        Int
   deadlines     Deadline[]
