@@ -20,6 +20,8 @@
     "vue-router": "^4.5.0"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.9",
     "prisma": "^6.5.0"
   }
 }

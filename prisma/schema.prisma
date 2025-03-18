@@ -31,10 +31,11 @@ model User {
   admin         Boolean
   nom           String
   prenom        String
-  email         String
+  email         String     @unique
   password      String
   avertissement Int
   limite        Int
+  statut        String
   deadlines     Deadline[]
   Module        Module?    @relation(fields: [moduleId], references: [id])
   moduleId      Int?

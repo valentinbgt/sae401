@@ -17,7 +17,12 @@ export default defineEventHandler(async (event) => {
       });
     }
 
-    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
+    const jwtSecret = process.env.JWT_SECRET;
+    if (!jwtSecret) {
+      throw new Error("JWT_SECRET is not defined");
+    }
+
+    const token = jwt.sign({ userId: user.id }, jwtSecret, {
       expiresIn: "1h",
     });
 

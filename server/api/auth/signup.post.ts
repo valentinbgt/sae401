@@ -15,6 +15,8 @@ export default defineEventHandler(async (event) => {
         statut: "student", // Default status
         avertissement: 0,
         limite: 0,
+        prof: false, // Set default value for prof
+        admin: false, // Set default value for admin
       },
     });
 
