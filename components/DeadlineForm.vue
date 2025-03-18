@@ -76,7 +76,7 @@ const formData = ref({
 const submitForm = async () => {
   try {
     // Check les doublons
-    const duplicateCheck = await $fetch("/api/deadlines/check-duplicate", {
+    /*     const duplicateCheck = await $fetch("/api/deadlines/check-duplicate", {
       method: "POST",
       body: {
         module: formData.value.module,
@@ -85,11 +85,13 @@ const submitForm = async () => {
       },
     });
 
+    console.log(duplicateCheck);
+
     if (duplicateCheck.exists) {
       // TODO: Afficher une modal avec les 3 options
       console.log("Deadline similaire trouvée:", duplicateCheck.deadline);
       return;
-    }
+    } */
 
     // Création de la deadline
     const response = await $fetch("/api/deadlines", {
