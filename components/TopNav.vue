@@ -8,9 +8,22 @@
 
       <NotificationBell :new="notif"></NotificationBell>
 
-      <NuxtLink to="/compte" class="pl-4">
-        <img src="/icons/account.svg" />
-      </NuxtLink>
+      <template v-if="authStore.isAuthenticated">
+        <NuxtLink to="/compte" class="pl-4 flex items-center">
+          <img src="/icons/account.svg" />
+          <span class="text-lg font-medium pl-2">{{
+            authStore.user?.prenom
+          }}</span>
+        </NuxtLink>
+      </template>
+      <template v-else>
+        <NuxtLink
+          to="/compte/connexion"
+          class="text-lg font-medium pl-4 flex items-center"
+        >
+          Connexion
+        </NuxtLink>
+      </template>
     </div>
   </div>
 </template>
@@ -19,4 +32,20 @@
 defineProps({
   notif: Boolean,
 });
+
+import { useAuthStore } from "~/stores/auth";
+
+const authStore = useAuthStore();
+
+// Charger les données utilisateur au chargement du composant
+onMounted(async () => {
+  if (authStore.token && !authStore.user) {
+    await authStore.fetchUser();
+  }
+});
+
+const logout = () => {
+  authStore.logout();
+  navigateTo("/");
+};
 </script>

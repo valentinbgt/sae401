@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -15,16 +9,43 @@ datasource db {
 
 model Deadline {
   id          Int      @id @default(autoincrement())
+  auteur      Int
   module      String
+  type        String
   titre       String
   timestamp   DateTime
-  type        String
   lieu        String
   prof        String
   description String?
-  etendue     String // TP, TD, ou CM
-  auteur      String // ID de l'utilisateur qui a créé la deadline
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  historique  Json // Will store the array of modifications as a single JSON object
+  historique  Json
+  etendue     String
+  tp          String?
+  attachments String?
+  user        User     @relation(fields: [auteur], references: [id])
+  moduleRel   Module   @relation(fields: [module], references: [code])
+}
+
+model User {
+  id            Int        @id @default(autoincrement())
+  prof          Boolean
+  admin         Boolean
+  nom           String
+  prenom        String
+  email         String     @unique
+  password      String
+  avertissement Int
+  limite        Int
+  statut        String
+  deadlines     Deadline[]
+  Module        Module?    @relation(fields: [moduleId], references: [id])
+  moduleId      Int?
+}
+
+model Module {
+  id        Int        @id @default(autoincrement())
+  code      String     @unique
+  titre     String
+  semestre  Int
+  profs     User[]
+  deadlines Deadline[]
 }
