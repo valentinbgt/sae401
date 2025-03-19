@@ -41,7 +41,23 @@ watch(route, () => {
 
 <template>
   <NuxtLayout>
-    <div v-if="loading">Chargement en cours...</div>
+    <div v-if="loading">
+      <div
+        class="w-full h-full fixed flex items-center justify-center bg-indigo-500"
+      >
+        <div class="flex flex-col items-center">
+          <img
+            src="/assets/images/logo_agenda.svg"
+            alt="logo-agenda"
+            class="w-68"
+          />
+
+          <p class="text-2xl font-semibold text-white mt-8">
+            Chargement en cours...
+          </p>
+        </div>
+      </div>
+    </div>
     <div v-else class="flex">
       <!-- Show NavMenu only when not on login/register pages AND authenticated -->
       <NavMenu
