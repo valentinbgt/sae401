@@ -1,6 +1,6 @@
 <template>
   <TopNav :notif="true">Nouvelle Date</TopNav>
-  <div class="max-w-2xl mx-auto">
+  <div class="flex justify-start">
     <DeadlineForm />
   </div>
 </template>
