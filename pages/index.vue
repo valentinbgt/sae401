@@ -32,54 +32,32 @@
       <h2 class="font-bold text-2xl">Calendrier</h2>
     </div>
     <div class="border rounded-4xl py-6 flex items-center flex-col">
-      <h2 class="font-bold text-2xl mb-12 ">Actions</h2>
-      <NuxtLink to="dates/nouvelle" class="w-full flex items-center flex-col ">
-        <div class=" text-white bg-indigo-500 rounded-2xl py-4 w-10/12 text-center font-bold text-xl ">Ajouter une date</div>
+      <h2 class="font-bold text-2xl mb-12">Actions</h2>
+      <NuxtLink to="dates/nouvelle" class="w-full flex items-center flex-col">
+        <div
+          class="text-white bg-indigo-500 rounded-2xl py-4 w-10/12 text-center font-bold text-xl"
+        >
+          Ajouter une date
+        </div>
       </NuxtLink>
-        <div class="text-white bg-indigo-500 rounded-2xl mt-4 py-4 w-10/12 text-center font-bold text-xl ">Historique</div>
+      <div
+        class="text-white bg-indigo-500 rounded-2xl mt-4 py-4 w-10/12 text-center font-bold text-xl"
+      >
+        Historique
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 
 const slots = ref([]);
 
-const data = [
-  {
-    timestamp: 1742815800,
-    module: "WR412",
-    title: "Rendre les travaux sur le VPS",
-    prof: "R. Delon",
-    lieu: "Rendu sur VPS",
-  },
-  {
-    timestamp: 1742832000,
-    module: "WS401",
-    title: "Rendre le MCD/MLD",
-    prof: "D. Annebicque",
-    lieu: "Joindre au document initial",
-  },
-  {
-    timestamp: 1743116340,
-    module: "WR409",
-    title: "Rendre la maquette Figma",
-    prof: "A. Loizon",
-    lieu: "Rendu Moodle",
-  },
-  {
-    timestamp: 1743919200,
-    module: "WR408",
-    title: "Partiel",
-    prof: "P. Gommery",
-    lieu: "Partiel",
-  },
-].sort((a, b) => a.timestamp - b.timestamp);
-
-const timestampToDate = (timestamp) => {
-  const date = new Date(timestamp * 1000); // Convertir en millisecondes
-  let formattedDate = date.toLocaleDateString("fr-FR", {
+// Fonction pour convertir le timestamp en date
+const timestampToDate = (date) => {
+  const dateObj = new Date(date);
+  let formattedDate = dateObj.toLocaleDateString("fr-FR", {
     weekday: "long",
     day: "2-digit",
     month: "long",
@@ -88,49 +66,62 @@ const timestampToDate = (timestamp) => {
   return formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
 };
 
-const timestampToTime = (timestamp) => {
-  const date = new Date(timestamp * 1000); // Convertir en millisecondes
-  return date
+// Fonction pour convertir le timestamp en heure
+const timestampToTime = (date) => {
+  const dateObj = new Date(date);
+  return dateObj
     .toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })
     .replace(":", "h");
 };
 
-let lastDay = "";
-data.forEach((e) => {
-  let time,
-    title,
-    subTitle = "";
+// Charger les deadlines depuis l'API
+onMounted(async () => {
+  try {
+    const response = await $fetch("/api/deadlines");
 
-  time = timestampToTime(e.timestamp);
-  title = `${e.module} - ${e.title}`;
-  subTitle = `${e.prof} | ${e.lieu}`;
+    if (response.status === "success") {
+      const deadlines = response.data;
 
-  let elementDay = timestampToDate(e.timestamp);
+      // Organisation des deadlines par jour
+      let lastDay = "";
+      deadlines.forEach((e) => {
+        let time,
+          title,
+          subTitle = "";
 
-  if (elementDay != lastDay) {
-    // Create new day entry
-    slots.value.push({
-      [elementDay]: {
-        daySlots: [
-          {
+        time = timestampToTime(e.timestamp);
+        title = `${e.module} - ${e.titre}`;
+        subTitle = `${e.prof} | ${e.lieu}`;
+
+        let elementDay = timestampToDate(e.timestamp);
+
+        if (elementDay != lastDay) {
+          // Create new day entry
+          slots.value.push({
+            [elementDay]: {
+              daySlots: [
+                {
+                  time,
+                  title,
+                  subTitle,
+                },
+              ],
+            },
+          });
+          lastDay = elementDay;
+        } else {
+          // Add to existing day
+          const lastSlot = slots.value[slots.value.length - 1];
+          lastSlot[lastDay].daySlots.push({
             time,
             title,
             subTitle,
-          },
-        ],
-      },
-    });
-    lastDay = elementDay;
-  } else {
-    // Add to existing day
-    const lastSlot = slots.value[slots.value.length - 1];
-    lastSlot[lastDay].daySlots.push({
-      time,
-      title,
-      subTitle,
-    });
+          });
+        }
+      });
+    }
+  } catch (error) {
+    console.error("Erreur lors de la récupération des deadlines:", error);
   }
 });
-
-console.log(slots.value);
 </script>

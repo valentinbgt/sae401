@@ -116,6 +116,11 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
+import { useAuthStore } from "~/stores/auth";
+import { useRouter } from "vue-router";
+
+const authStore = useAuthStore();
+const router = useRouter();
 
 const formData = ref({
   module: "",
@@ -142,33 +147,27 @@ onMounted(async () => {
 });
 
 const submitForm = async () => {
+  // Vérifier si l'utilisateur est connecté
+  if (!authStore.isAuthenticated) {
+    // Rediriger vers la page de connexion
+    router.push("/compte/connexion");
+    return;
+  }
+
   try {
-    // Check les doublons
-    /*     const duplicateCheck = await $fetch("/api/deadlines/check-duplicate", {
-      method: "POST",
-      body: {
-        module: formData.value.module,
-        timestamp: formData.value.timestamp,
-        etendue: formData.value.etendue,
-      },
-    });
-
-    console.log(duplicateCheck);
-
-    if (duplicateCheck.exists) {
-      // TODO: Afficher une modal avec les 3 options
-      console.log("Deadline similaire trouvée:", duplicateCheck.deadline);
-      return;
-    } */
-
-    // Création de la deadline
+    // Création de la deadline avec le token d'authentification
     const response = await $fetch("/api/deadlines", {
       method: "POST",
       body: formData.value,
+      headers: {
+        Authorization: `Bearer ${authStore.token}`,
+      },
     });
 
-    console.log("Deadline créée avec succès:", response);
-    // TODO: Rediriger vers la page des deadlines ou afficher un message de succès
+    if (response.status === "success") {
+      // Redirection vers la liste des deadlines
+      router.push("/dates");
+    }
   } catch (error) {
     console.error("Erreur lors de l'envoi du formulaire:", error);
     // TODO: Afficher un message d'erreur à l'utilisateur
