@@ -1,28 +1,33 @@
 <template>
+  <h2>Inscripton</h2>
   <form @submit.prevent="submitSignup" class="w-full">
     <div class="space-y-4">
-      <div>
-        <label for="nom">Nom</label>
-        <input type="text" id="nom" v-model="formData.nom" required />
+
+      <div class="flex">
+        <div class="flex flex-col w-30" >
+          <label class="font-bold" for="prenom">Prénom</label>
+          <input class="border rounded-lg" type="text" id="prenom" v-model="formData.prenom" required />
+        </div>
+
+        <div class="flex flex-col w-30">
+          <label class="font-bold" for="nom">Nom</label>
+          <input class="border rounded-lg" type="text" id="nom" v-model="formData.nom" required />
+        </div>
       </div>
 
       <div>
-        <label for="prenom">Prénom</label>
-        <input type="text" id="prenom" v-model="formData.prenom" required />
+        <label class="font-bold" for="email">Email</label>
+        <input class="border rounded-lg" type="email" id="email" v-model="formData.email" required />
       </div>
 
       <div>
-        <label for="email">Email</label>
-        <input type="email" id="email" v-model="formData.email" required />
-      </div>
-
-      <div>
-        <label for="password">Mot de passe</label>
+        <label class="font-bold" for="password">Mot de passe</label>
         <input
-          type="password"
-          id="password"
-          v-model="formData.password"
-          required
+            type="password"
+            id="password"
+            v-model="formData.password"
+            required
+            class="border rounded-lg"
         />
       </div>
 
