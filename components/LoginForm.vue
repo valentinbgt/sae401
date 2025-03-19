@@ -2,12 +2,13 @@
   <form @submit.prevent="submitLogin" class="w-full">
     <div class="space-y-4">
       <div>
-        <label for="email">Email</label>
+        <label for="email">Adresse universitaire 
+        </label>
         <input type="email" id="email" v-model="formData.email" required />
       </div>
 
       <div>
-        <label for="password">Mot de passe</label>
+        <label for="password" c>Mot de passe</label>
         <input
           type="password"
           id="password"
@@ -20,11 +21,11 @@
         {{ error }}
       </div>
 
-      <button type="submit" :disabled="loading">
+      <button class="bg-indigo-500 text-white pw-auto"   type="submit" :disabled="loading">
         {{ loading ? "Connexion en cours..." : "Se connecter" }}
       </button>
     </div>
-    <div>Pas de compte ? <NuxtLink to="inscription">S'inscrire</NuxtLink></div>
+    <div>Vous n’avez pas de compte ? <NuxtLink to="inscription">Créer un compte</NuxtLink></div>
   </form>
 </template>
 
