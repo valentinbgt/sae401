@@ -1,63 +1,81 @@
 <template>
-  <form @submit.prevent="submitForm" class="w-full">
-    <div class="space-y-4">
+
+  <form @submit.prevent="submitForm" class="w-full max-w-lg mr-auto  rounded-lg space-y-6">
+    <div>
+      <label for="title" class="block font-semibold">Nom du rendu</label>
+      <input type="text" id="title" v-model="formData.titre" required
+             class="w-full mt-1 p-2 border border-gray-300 rounded-lg" />
+    </div>
+
+    <div class="grid grid-cols-3 gap-4">
       <div>
-        <label for="module">Module</label>
-        <select id="module" v-model="formData.module" required>
-          <option value="">Sélectionner un module</option>
+        <label for="module" class="block font-semibold">Module</label>
+        <select id="module" v-model="formData.module" required
+                class="w-full mt-1 p-2 border border-gray-300 rounded-lg">
+          <option value="">wr407</option>
           <option value="autre">Autre</option>
-          <!-- À remplir avec les modules depuis l'API -->
         </select>
       </div>
 
       <div>
-        <label for="title">Titre</label>
-        <input type="text" id="title" v-model="formData.titre" required />
+        <label for="module" class="block font-semibold">Format</label>
+        <select id="module" v-model="formData.module" required
+                class="w-full mt-1 p-2 border border-gray-300 rounded-lg">
+          <option value="">pdf</option>
+          <option value="">jpg</option>
+          <option value="">png</option>
+          <option value="">doc/docx</option>
+          <option value="">ppt/pptx</option>
+          <option value="">zip</option>
+          <option value="">jpg</option>
+
+          <option value="autre">autre</option>
+
+        </select>
       </div>
 
       <div>
-        <label for="timestamp">Date et heure limite</label>
-        <input
-          type="datetime-local"
-          id="timestamp"
-          v-model="formData.timestamp"
-          required
-        />
+        <label for="prof" class="block font-semibold">Enseignant</label>
+        <select id="prof" v-model="formData.prof" required
+                class="w-full mt-1 p-2 border border-gray-300 rounded-lg">
+          <option value="">Choisir</option>
+          <option value="prof1">Professeur 1</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-3 gap-4">
+      <div class="col-span-2">
+        <label for="timestamp" class="block font-semibold">Date et heure limite</label>
+        <input type="datetime-local" id="timestamp" v-model="formData.timestamp" required
+               class="w-full mt-1 p-2 border border-gray-300 rounded-lg" />
       </div>
 
       <div>
-        <label for="type">Format de rendu</label>
-        <input type="text" id="type" v-model="formData.type" required />
-      </div>
-
-      <div>
-        <label for="lieu">Lieu de rendu</label>
-        <input type="text" id="lieu" v-model="formData.lieu" required />
-      </div>
-
-      <div>
-        <label for="prof">Enseignant référent</label>
-        <input type="text" id="prof" v-model="formData.prof" required />
-      </div>
-
-      <div>
-        <label for="description">Description/Sujet (optionnel)</label>
-        <textarea id="description" v-model="formData.description"></textarea>
-      </div>
-
-      <div>
-        <label for="etendue">Étendue</label>
-        <select id="etendue" v-model="formData.etendue" required>
+        <label for="tp" class="block font-semibold">Étendu</label>
+        <select id="tp" v-model="formData.etendue" required
+                class="w-full mt-1 p-2 border border-gray-300 rounded-lg">
           <option value="TP">TP</option>
           <option value="TD">TD</option>
           <option value="CM">CM</option>
         </select>
       </div>
-
-      <button type="submit">Ajouter la deadline</button>
     </div>
+
+
+
+    <div>
+      <label for="description" class="block font-semibold">Détail</label>
+      <textarea id="description" v-model="formData.description"
+                class="w-full mt-1 p-2 border border-gray-300 rounded-lg h-32"></textarea>
+    </div>
+
+    <button type="submit" class="w-full p-3 text-white bg-indigo-500 rounded-lg hover:bg-indigo-600">
+      Ajouter un rendu
+    </button>
   </form>
 </template>
+
 
 <script setup>
 import { ref } from "vue";
