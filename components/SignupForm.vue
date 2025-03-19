@@ -40,6 +40,10 @@
 
 <script setup>
 import { ref } from "vue";
+import { useAuthStore } from "~/stores/auth";
+
+const authStore = useAuthStore();
+const router = useRouter();
 
 const formData = ref({
   nom: "",
@@ -61,7 +65,17 @@ const submitSignup = async () => {
       body: formData.value,
     });
 
-    router.push("/");
+    if (response?.status == "success") {
+      const success = await authStore.login(formData.value);
+
+      if (success) {
+        router.push("/");
+      } else {
+        router.push("/compte/connexion");
+      }
+    } else {
+      error.value = "Echec de l'inscription";
+    }
   } catch (error) {
     error.value = "Une erreur s'est produite lors de l'inscription";
   } finally {
