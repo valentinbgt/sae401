@@ -11,12 +11,12 @@
   <div class="flex items-center">
     <img src="../../assets/images/ppp.png" alt="photo de profil" />
     <div class="ml-8">
-      <H1 class="text-xl font-bold"> Nom de l'etudiant : </H1>
-      <P class="mb-5"> Feret </P>
-      <H1 class="text-xl font-bold"> Prenom de l'etudiant : </H1>
-      <p class="mb-5">Jean Michel</p>
-      <H1 class="text-xl font-bold"> Adresse de l'etudiant : </H1>
-      <p class="mb-5">Valentin.fernet@etudiant.univ-reims.fr</p>
+      <h1 class="text-xl font-bold">Nom de l'etudiant :</h1>
+      <p class="mb-5">{{ authStore.user?.nom }}</p>
+      <h1 class="text-xl font-bold">Prenom de l'etudiant :</h1>
+      <p class="mb-5">{{ authStore.user?.prenom }}</p>
+      <h1 class="text-xl font-bold">Adresse de l'etudiant :</h1>
+      <p class="mb-5">{{ authStore.user?.email }}</p>
     </div>
   </div>
 
@@ -47,4 +47,6 @@ const logout = () => {
   authStore.logout();
   navigateTo("/");
 };
+
+console.log(authStore.user);
 </script>
