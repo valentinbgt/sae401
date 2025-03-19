@@ -48,5 +48,9 @@ const logout = () => {
   navigateTo("/");
 };
 
+if (!authStore.user) {
+  navigateTo("/compte/connexion");
+}
+
 console.log(authStore.user);
 </script>
