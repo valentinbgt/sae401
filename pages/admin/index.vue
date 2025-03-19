@@ -1,4 +1,4 @@
 <template>
   <TopNav :notif="true">Admin</TopNav>
-  admin
+  <NuxtLink to="admin/modules">Voir les modules</NuxtLink>
 </template>
