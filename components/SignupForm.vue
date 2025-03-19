@@ -8,18 +8,18 @@
           <div class="flex justify-between">
             <div class="flex flex-col w-60" >
               <label class="font-bold" for="prenom">Prénom</label>
-              <input class="border rounded-lg py-0.5 p-2" type="text" id="prenom" v-model="formData.prenom" required />
+              <input class="border rounded-lg py-2 p-2" type="text" id="prenom" v-model="formData.prenom" required />
             </div>
 
             <div class="flex flex-col w-60 ">
               <label class="font-bold" for="nom">Nom</label>
-              <input class="border rounded-lg py-0.5 p-2" type="text" id="nom" v-model="formData.nom" required />
+              <input class="border rounded-lg py-2 p-2" type="text" id="nom" v-model="formData.nom" required />
             </div>
           </div>
 
           <div class="flex flex-col w-full">
             <label class="font-bold" for="email">Email</label>
-            <input class="border rounded-lg py-0.5 p-2" type="email" id="email" v-model="formData.email" required />
+            <input class="border rounded-lg py-2 p-2" type="email" id="email" v-model="formData.email" required />
           </div>
 
           <div class="flex flex-col w-full">
@@ -29,7 +29,7 @@
                 id="password"
                 v-model="formData.password"
                 required
-                class="border rounded-lg py-0.5 p-2"
+                class="border rounded-lg py-2 p-2"
             />
           </div>
 
@@ -37,11 +37,11 @@
             {{ error }}
           </div>
 
-          <button class="border w-full bg-indigo-500 text-white rounded-lg py-1 cursor-pointer" type="submit" :disabled="loading">
+          <button class="border w-full bg-indigo-500 text-white rounded-lg py-3 cursor-pointer hover:bg-indigo-600 disabled:bg-gray-400 " type="submit" :disabled="loading">
             {{ loading ? "Inscription en cours..." : "S'inscrire" }}
           </button>
         </div>
-        <div class="mt-4">Déjà un compte ? <NuxtLink class="font-bold" to="connexion">Se connecter</NuxtLink></div>
+        <div class="mt-4">Déjà un compte ? <NuxtLink class="underline text-indigo-500 font-semibold" to="connexion">Se connecter</NuxtLink></div>
       </form>
     </div>
   </form>
