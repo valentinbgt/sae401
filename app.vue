@@ -13,7 +13,7 @@ const hideNavMenu = noNavRoutes.includes(route.path)
         <template v-if="!hideNavMenu">
           <NavMenu />
         </template>
-        <div class="mx-12 w-full">
+        <div class="w-full">
           <NuxtPage />
         </div>
       </div>
