@@ -8,6 +8,8 @@ const route = useRoute();
 const router = useRouter();
 const noNavRoutes = ["/compte/inscription", "/compte/connexion"];
 
+const loading = ref(true);
+
 const checkConnexion = async () => {
   if (authStore.token && !authStore.user) {
     await authStore.fetchUser();
@@ -24,6 +26,8 @@ const checkConnexion = async () => {
       router.push("/compte/connexion");
     }
   }
+
+  loading.value = false;
 };
 
 onMounted(() => {
@@ -37,7 +41,8 @@ watch(route, () => {
 
 <template>
   <NuxtLayout>
-    <div class="flex">
+    <div v-if="loading">Chargement en cours...</div>
+    <div v-else class="flex">
       <!-- Show NavMenu only when not on login/register pages AND authenticated -->
       <NavMenu
         v-if="!noNavRoutes.includes(route.path) && authStore.isAuthenticated"
