@@ -1,7 +1,6 @@
 <template>
   <form @submit.prevent="submitLogin" class="w-full">
     <div class="p-4">
-      <h2 class="font-bold text-4xl mb-10">Connexion</h2>
       <div class="space-y-10">
         <div>
           <label for="email" class="font-bold">
@@ -36,7 +35,7 @@
           {{ loading ? "Connexion en cours..." : "Se connecter" }}
         </button>
       </div>
-      <div class="p-4">
+      <div class="p-4 text-center ">
         Vous n’avez pas de compte ?
         <NuxtLink
           class="underline text-indigo-500 font-semibold"
