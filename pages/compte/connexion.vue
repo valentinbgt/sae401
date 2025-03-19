@@ -1,6 +1,5 @@
 <template>
   <div class="flex max-w-[1920px]  h-screen">
-    <!-- Section Gauche: Formulaire -->
     <div class="w-1/2 flex flex-col justify-center items-center p-12">
       <p class="text-8xl font-bold mb-2 text-center">Bienvenue</p>
       <p class="text-gray-600 mb-6 text-center">
@@ -9,7 +8,6 @@
       <LoginForm />
     </div>
 
-    <!-- Section Droite: Background & Logo -->
     <div class="w-1/2 relative flex items-center justify-center bg-indigo-500">
   
       <img
