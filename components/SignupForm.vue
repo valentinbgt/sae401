@@ -26,7 +26,13 @@
         />
       </div>
 
-      <button type="submit">S'inscrire</button>
+      <div v-if="error" class="text-red-500">
+        {{ error }}
+      </div>
+
+      <button type="submit" :disabled="loading">
+        {{ loading ? "Inscription en cours..." : "S'inscrire" }}
+      </button>
     </div>
     <div>Déjà un compte ? <NuxtLink to="connexion">Se connecter</NuxtLink></div>
   </form>
@@ -42,15 +48,24 @@ const formData = ref({
   password: "",
 });
 
+const loading = ref(false);
+const error = ref("");
+
 const submitSignup = async () => {
+  loading.value = true;
+  error.value = "";
+
   try {
     const response = await $fetch("/api/auth/signup", {
       method: "POST",
       body: formData.value,
     });
-    console.log("Inscription réussie:", response);
+
+    router.push("/");
   } catch (error) {
-    console.error("Erreur lors de l'inscription:", error);
+    error.value = "Une erreur s'est produite lors de l'inscription";
+  } finally {
+    loading.value = false;
   }
 };
 </script>
