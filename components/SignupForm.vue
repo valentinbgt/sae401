@@ -1,34 +1,49 @@
 <template>
   <form @submit.prevent="submitSignup" class="w-full">
-    <div class="space-y-4">
-      <div>
-        <label for="nom">Nom</label>
-        <input type="text" id="nom" v-model="formData.nom" required />
-      </div>
+    <div class="mx-14">
+      <h2 class="font-bold text-4xl mb-10">Inscription</h2>
+      <form @submit.prevent="submitSignup" class="w-full">
+        <div class="space-y-10">
 
-      <div>
-        <label for="prenom">Prénom</label>
-        <input type="text" id="prenom" v-model="formData.prenom" required />
-      </div>
+          <div class="flex justify-between">
+            <div class="flex flex-col w-60" >
+              <label class="font-bold" for="prenom">Prénom</label>
+              <input class="border rounded-lg py-0.5 p-2" type="text" id="prenom" v-model="formData.prenom" required />
+            </div>
 
-      <div>
-        <label for="email">Email</label>
-        <input type="email" id="email" v-model="formData.email" required />
-      </div>
+            <div class="flex flex-col w-60 ">
+              <label class="font-bold" for="nom">Nom</label>
+              <input class="border rounded-lg py-0.5 p-2" type="text" id="nom" v-model="formData.nom" required />
+            </div>
+          </div>
 
-      <div>
-        <label for="password">Mot de passe</label>
-        <input
-          type="password"
-          id="password"
-          v-model="formData.password"
-          required
-        />
-      </div>
+          <div class="flex flex-col w-full">
+            <label class="font-bold" for="email">Email</label>
+            <input class="border rounded-lg py-0.5 p-2" type="email" id="email" v-model="formData.email" required />
+          </div>
 
-      <button type="submit">S'inscrire</button>
+          <div class="flex flex-col w-full">
+            <label class="font-bold" for="password">Mot de passe</label>
+            <input
+                type="password"
+                id="password"
+                v-model="formData.password"
+                required
+                class="border rounded-lg py-0.5 p-2"
+            />
+          </div>
+
+          <div v-if="error" class="text-red-500">
+            {{ error }}
+          </div>
+
+          <button class="border w-full bg-indigo-500 text-white rounded-lg py-1 cursor-pointer" type="submit" :disabled="loading">
+            {{ loading ? "Inscription en cours..." : "S'inscrire" }}
+          </button>
+        </div>
+        <div class="mt-4">Déjà un compte ? <NuxtLink class="font-bold" to="connexion">Se connecter</NuxtLink></div>
+      </form>
     </div>
-    <div>Déjà un compte ? <NuxtLink to="connexion">Se connecter</NuxtLink></div>
   </form>
 </template>
 
