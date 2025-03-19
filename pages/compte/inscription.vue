@@ -1,6 +1,5 @@
 <template>
-  <TopNav :notif="true">S'inscrire</TopNav>
-  <div class="max-w-2xl mx-auto">
+  <div >
     <SignupForm />
   </div>
 </template>
