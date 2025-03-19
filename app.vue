@@ -1,22 +1,54 @@
 <script setup>
-import { useRoute } from 'vue-router'
+import { onMounted, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { useAuthStore } from "~/stores/auth";
 
-const route = useRoute()
-const noNavRoutes = ['/compte/inscription', '/compte/connexion']
-const hideNavMenu = noNavRoutes.includes(route.path)
+const authStore = useAuthStore();
+const route = useRoute();
+const router = useRouter();
+const noNavRoutes = ["/compte/inscription", "/compte/connexion"];
+
+const checkConnexion = async () => {
+  if (authStore.token && !authStore.user) {
+    await authStore.fetchUser();
+  }
+
+  const userTryToLogIn = noNavRoutes.includes(route.path);
+
+  if (authStore.isAuthenticated) {
+    if (userTryToLogIn) {
+      router.push("/");
+    }
+  } else {
+    if (!userTryToLogIn) {
+      router.push("/compte/connexion");
+    }
+  }
+};
+
+onMounted(() => {
+  checkConnexion();
+});
+
+watch(route, () => {
+  checkConnexion();
+});
 </script>
 
 <template>
-  <div>
-    <NuxtLayout>
-      <div class="flex">
-        <template v-if="!hideNavMenu">
-          <NavMenu />
-        </template>
-        <div class="mx-12 w-full">
-          <NuxtPage />
-        </div>
+  <NuxtLayout>
+    <div class="flex">
+      <!-- Show NavMenu only when not on login/register pages AND authenticated -->
+      <NavMenu
+        v-if="!noNavRoutes.includes(route.path) && authStore.isAuthenticated"
+      />
+
+      <div
+        class="w-full"
+        :class="[!noNavRoutes.includes(route.path) ? 'mx-12' : '']"
+      >
+        <NuxtPage />
       </div>
-    </NuxtLayout>
-  </div>
+    </div>
+  </NuxtLayout>
 </template>
