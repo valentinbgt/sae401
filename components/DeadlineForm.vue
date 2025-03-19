@@ -23,7 +23,7 @@
           required
           class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
         >
-          <option value="">WX000</option>
+          <option value="">Choisir</option>
           <option
             v-for="module in modules"
             :key="module.code"
@@ -36,21 +36,19 @@
       </div>
 
       <div>
-        <label for="module" class="block font-semibold">Format</label>
+        <label for="format" class="block font-semibold">Format</label>
         <select
-          id="module"
-          v-model="formData.module"
+          id="format"
+          v-model="formData.type"
           required
           class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
         >
-          <option value="">pdf</option>
-          <option value="">jpg</option>
-          <option value="">png</option>
-          <option value="">doc/docx</option>
-          <option value="">ppt/pptx</option>
-          <option value="">zip</option>
-          <option value="">jpg</option>
-
+          <option value="pdf">pdf</option>
+          <option value="jpg">jpg</option>
+          <option value="png">png</option>
+          <option value="doc/docx">doc/docx</option>
+          <option value="ppt/pptx">ppt/pptx</option>
+          <option value="zip">zip</option>
           <option value="autre">autre</option>
         </select>
       </div>
@@ -84,7 +82,7 @@
       </div>
 
       <div>
-        <label for="tp" class="block font-semibold">Étendu</label>
+        <label for="tp" class="block font-semibold">Étendue</label>
         <select
           id="tp"
           v-model="formData.etendue"
@@ -99,7 +97,7 @@
     </div>
 
     <div>
-      <label for="description" class="block font-semibold">Détail</label>
+      <label for="description" class="block font-semibold">Sujet</label>
       <textarea
         id="description"
         v-model="formData.description"
