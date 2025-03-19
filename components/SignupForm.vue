@@ -28,6 +28,7 @@
 
       <button type="submit">S'inscrire</button>
     </div>
+    <div>Déjà un compte ? <NuxtLink to="connexion">Se connecter</NuxtLink></div>
   </form>
 </template>
 

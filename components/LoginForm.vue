@@ -24,6 +24,7 @@
         {{ loading ? "Connexion en cours..." : "Se connecter" }}
       </button>
     </div>
+    <div>Pas de compte ? <NuxtLink to="inscription">S'inscrire</NuxtLink></div>
   </form>
 </template>
 
