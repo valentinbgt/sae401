@@ -1,7 +1,6 @@
 <template>
   <form @submit.prevent="submitSignup" class="w-full">
     <div class="mx-14">
-      <h2 class="font-bold text-4xl mb-10">Inscription</h2>
       <form @submit.prevent="submitSignup" class="w-full">
         <div class="space-y-10">
 
@@ -41,7 +40,7 @@
             {{ loading ? "Inscription en cours..." : "S'inscrire" }}
           </button>
         </div>
-        <div class="mt-4">Déjà un compte ? <NuxtLink class="underline text-indigo-500 font-semibold" to="connexion">Se connecter</NuxtLink></div>
+        <div class="mt-4 text-center ">Déjà un compte ? <NuxtLink class="underline text-indigo-500 font-semibold" to="connexion">Se connecter</NuxtLink></div>
       </form>
     </div>
   </form>
