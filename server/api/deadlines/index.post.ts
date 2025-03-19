@@ -1,8 +1,29 @@
 import { writeFile } from "fs/promises";
 import { join } from "path";
 import prisma from "~/server/utils/prisma";
+import jwt from "jsonwebtoken";
 
 export default defineEventHandler(async (event) => {
+  // Vérifier si l'utilisateur est connecté
+  const authHeader = getRequestHeader(event, "authorization");
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    throw createError({
+      statusCode: 401,
+      message: "Vous devez être connecté pour créer une deadline",
+    });
+  }
+
+  const token = authHeader.split(" ")[1];
+  const jwtSecret = process.env.JWT_SECRET;
+
+  if (!jwtSecret) {
+    throw new Error("JWT_SECRET non défini");
+  }
+
+  // Récupérer l'ID de l'utilisateur depuis le token
+  const decoded = jwt.verify(token, jwtSecret) as { userId: number };
+  const userId = decoded.userId;
+
   const body = await readBody(event);
 
   try {
@@ -16,7 +37,7 @@ export default defineEventHandler(async (event) => {
         prof: body.prof,
         description: body.description,
         etendue: body.etendue,
-        auteur: "user123", // TODO: Récupérer l'ID de l'utilisateur connecté
+        auteur: userId,
         historique: [], // Tableau vide initial pour l'historique
       },
     });
