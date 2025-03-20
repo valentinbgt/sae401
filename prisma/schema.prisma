@@ -16,6 +16,7 @@ model Deadline {
   titre       String
   timestamp   DateTime
   lieu        String
+  lieuDetails String?
   prof        String
   description String?
   historique  Json
