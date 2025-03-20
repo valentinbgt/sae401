@@ -1,23 +1,18 @@
 <template>
   <TopNav :notif="true">Tableau de bord</TopNav>
   <div class="grid grid-cols-3 gap-8 grid-rows-2">
-    <div
-      class="border rounded-4xl py-6 flex items-center flex-col col-span-2 row-span-2"
-    >
+    <!-- Bloc Prochains Rendus -->
+    <div class="border rounded-4xl py-6 flex items-center flex-col col-span-2 row-span-2">
       <h2 class="font-bold text-2xl">Prochains rendus</h2>
-      <div
-        v-for="(dayData, i) in slots"
-        :key="i"
-        class="w-full flex flex-col items-center"
-      >
+      <div v-for="(dayData, i) in slots" :key="i" class="w-full flex flex-col items-center">
         <Separator>{{ Object.keys(dayData)[0] }}</Separator>
         <TimeSlot
-          v-for="(slot, index) in dayData[Object.keys(dayData)[0]].daySlots"
-          :key="index"
-          :time="slot.time"
-          :title="slot.title"
-          :sub-title="slot.subTitle"
-          :deadline-id="slot.id"
+            v-for="(slot, index) in dayData[Object.keys(dayData)[0]].daySlots"
+            :key="index"
+            :time="slot.time"
+            :title="slot.title"
+            :sub-title="slot.subTitle"
+            :deadline-id="slot.id"
         />
       </div>
       <div class="mt-2 h-8 w-full">
@@ -29,33 +24,33 @@
         </div>
       </div>
     </div>
+
+    <!-- Bloc Calendrier -->
     <div class="border rounded-4xl py-6 flex items-center flex-col">
       <h2 class="font-bold text-2xl">Calendrier</h2>
+      <client-only>
+        <VCalendar is-expanded />
+      </client-only>
     </div>
+
+    <!-- Bloc Actions -->
     <div class="border rounded-4xl py-6 flex items-center flex-col">
       <h2 class="font-bold text-2xl mb-12">Actions</h2>
       <NuxtLink to="dates/nouvelle" class="w-full flex items-center flex-col">
-        <div
-          class="text-white bg-indigo-500 rounded-2xl py-4 w-10/12 text-center font-bold text-xl"
-        >
-          Ajouter une date
-        </div>
+        <div class="text-white bg-indigo-500 rounded-2xl py-4 w-10/12 text-center font-bold text-xl">Ajouter une date</div>
       </NuxtLink>
-      <div
-        class="text-white bg-indigo-500 rounded-2xl mt-4 py-4 w-10/12 text-center font-bold text-xl"
-      >
-        Historique
-      </div>
+      <div class="text-white bg-indigo-500 rounded-2xl mt-4 py-4 w-10/12 text-center font-bold text-xl">Historique</div>
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from "vue";
+import "v-calendar/style.css";
 
 const slots = ref([]);
 
-// Fonction pour convertir le timestamp en date
+//  Convertir timestamp en date formatée
 const timestampToDate = (date) => {
   const dateObj = new Date(date);
   let formattedDate = dateObj.toLocaleDateString("fr-FR", {
@@ -63,58 +58,37 @@ const timestampToDate = (date) => {
     day: "2-digit",
     month: "long",
   });
-
   return formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
 };
 
-// Fonction pour convertir le timestamp en heure
+//  Convertir timestamp en heure
 const timestampToTime = (date) => {
   const dateObj = new Date(date);
-  return dateObj
-    .toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })
-    .replace(":", "h");
+  return dateObj.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }).replace(":", "h");
 };
 
-// Charger les deadlines depuis l'API
-onMounted(async () => {
+//  Charger les deadlines API
+const fetchDeadlines = async () => {
   try {
     const response = await $fetch("/api/deadlines");
 
     if (response.status === "success") {
       const deadlines = response.data;
-
-      // Organisation des deadlines par jour
       let lastDay = "";
+
       deadlines.forEach((e) => {
-        let time,
-          title,
-          subTitle = "";
-
-        time = timestampToTime(e.timestamp);
-        title = `${e.module} - ${e.titre}`;
-        subTitle = `${e.prof} | ${e.lieu}`;
-
+        let time = timestampToTime(e.timestamp);
+        let title = `${e.module} - ${e.titre}`;
+        let subTitle = `${e.prof} | ${e.lieu}`;
         let elementDay = timestampToDate(e.timestamp);
 
-        if (elementDay != lastDay) {
-          // Create new day entry
+        if (elementDay !== lastDay) {
           slots.value.push({
-            [elementDay]: {
-              daySlots: [
-                {
-                  id: e.id,
-                  time,
-                  title,
-                  subTitle,
-                },
-              ],
-            },
+            [elementDay]: { daySlots: [{ id: e.id, time, title, subTitle }] },
           });
           lastDay = elementDay;
         } else {
-          // Add to existing day
-          const lastSlot = slots.value[slots.value.length - 1];
-          lastSlot[lastDay].daySlots.push({
+          slots.value[slots.value.length - 1][lastDay].daySlots.push({
             id: e.id,
             time,
             title,
@@ -126,5 +100,8 @@ onMounted(async () => {
   } catch (error) {
     console.error("Erreur lors de la récupération des deadlines:", error);
   }
-});
+};
+
+//  Charger toutes les données au montage
+onMounted(fetchDeadlines);
 </script>
