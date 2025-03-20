@@ -17,6 +17,7 @@
           :time="slot.time"
           :title="slot.title"
           :sub-title="slot.subTitle"
+          :deadline-id="slot.id"
         />
       </div>
       <div class="mt-2 h-8 w-full">
@@ -101,6 +102,7 @@ onMounted(async () => {
             [elementDay]: {
               daySlots: [
                 {
+                  id: e.id,
                   time,
                   title,
                   subTitle,
@@ -113,6 +115,7 @@ onMounted(async () => {
           // Add to existing day
           const lastSlot = slots.value[slots.value.length - 1];
           lastSlot[lastDay].daySlots.push({
+            id: e.id,
             time,
             title,
             subTitle,
