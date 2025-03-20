@@ -3,7 +3,7 @@
   <p class="text-xl font-bold pb-5">Vous pouvez consulter et ajouter des dates.</p>
   
   <div class="mb-6 flex justify-end">
-    <NuxtLink to="dates/nouvelle" class="p-3 bg-indigo-500 text-white font-semibold rounded-lg text-white
+    <NuxtLink to="dates/nouvelle" class="p-3 bg-indigo-500 font-semibold rounded-lg text-white
     cursor-pointer hover:bg-indigo-600 disabled:bg-gray-400 ">Ajouter une date</NuxtLink>
   </div>
   

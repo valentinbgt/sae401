@@ -1,20 +1,15 @@
 <template>
-  <TopNav :notif="true">Profile</TopNav>
+  <TopNav :notif="true">Votre profil</TopNav>
   <div>
-    <div class="relative overflow-hidden w-full h-screen">
-      <div class="absolute z-10 bottom-9 -right-10">
-        <img
-          src="../../assets/images/logo_agenda.svg"
-          alt="logo-agenda"
-          class="w-100"
-        />
+    <div>
+      <div class="fixed bottom-0 -right-10 -mb-10 -ml-10">
+        <img src="../../assets/images/logo_agenda.svg" alt="logo-agenda" class="w-100" />
       </div>
-
       <div class="flex items-center">
         <img
           src="../../assets/images/ppp.png"
           class="w-60 aspect-square rounded-full border object-cover"
-          alt="photo de profil"
+          alt="Photo de profil"
         />
         <div class="ml-8">
           <div class="flex">
