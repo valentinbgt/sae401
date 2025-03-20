@@ -96,6 +96,35 @@
       </div>
     </div>
 
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label for="lieu" class="block font-semibold">Lieu de rendu</label>
+        <select
+          id="lieu"
+          v-model="formData.lieu"
+          required
+          class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
+          @change="updateLieuDetailsPlaceholder"
+        >
+          <option value="">Choisir</option>
+          <option value="Moodle">Moodle</option>
+          <option value="Email">Email</option>
+          <option value="Oral">Oral</option>
+          <option value="Partiel">Partiel</option>
+        </select>
+      </div>
+      <div v-if="formData.lieu">
+        <label for="lieuDetails" class="block font-semibold">{{ lieuDetailsLabel }}</label>
+        <input
+          type="text"
+          id="lieuDetails"
+          v-model="formData.lieuDetails"
+          :placeholder="lieuDetailsPlaceholder"
+          class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
+        />
+      </div>
+    </div>
+
     <div>
       <label for="description" class="block font-semibold">Sujet</label>
       <textarea
@@ -128,12 +157,39 @@ const formData = ref({
   timestamp: "",
   type: "",
   lieu: "",
+  lieuDetails: "",
   prof: "",
   description: "",
   etendue: "TP",
 });
 
 const modules = ref([]);
+const lieuDetailsLabel = ref("Détails du lieu");
+const lieuDetailsPlaceholder = ref("");
+
+const updateLieuDetailsPlaceholder = () => {
+  switch(formData.value.lieu) {
+    case "Moodle":
+      lieuDetailsLabel.value = "Lien Moodle";
+      lieuDetailsPlaceholder.value = "https://moodle.iutmmi.fr/...";
+      break;
+    case "Email":
+      lieuDetailsLabel.value = "Adresse email";
+      lieuDetailsPlaceholder.value = "example@example.com";
+      break;
+    case "Oral":
+      lieuDetailsLabel.value = "Salle";
+      lieuDetailsPlaceholder.value = "Numéro de salle ou lieu";
+      break;
+    case "Partiel":
+      lieuDetailsLabel.value = "Informations";
+      lieuDetailsPlaceholder.value = "Détails sur le partiel";
+      break;
+    default:
+      lieuDetailsLabel.value = "Détails du lieu";
+      lieuDetailsPlaceholder.value = "";
+  }
+};
 
 onMounted(async () => {
   try {
