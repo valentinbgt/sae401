@@ -31,7 +31,7 @@ export default defineEventHandler(async (event) => {
       status: "success",
       data: deadline,
     };
-  } catch (error) {
+  } catch (error: any) {
     console.error("Erreur lors de la récupération de la deadline:", error);
     throw createError({
       statusCode: error.statusCode || 500,
