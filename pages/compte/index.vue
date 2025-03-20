@@ -1,48 +1,58 @@
 <template>
   <TopNav :notif="true">Profile</TopNav>
   <div>
-            <div class="relative overflow-hidden  w-full  h-screen ">
-              <div class="absolute z-10 bottom-9 -right-10">
-                  <img 
-                      src="../../assets/images/logo_agenda.svg" 
-                      alt="logo-agenda" 
-                      class="w-100"
-                  />
-              </div>
+    <div class="relative overflow-hidden w-full h-screen">
+      <div class="absolute z-10 bottom-9 -right-10">
+        <img
+          src="../../assets/images/logo_agenda.svg"
+          alt="logo-agenda"
+          class="w-100"
+        />
+      </div>
 
-              <div class="flex items-center">
-              <img src="../../assets/images/ppp.png" alt="photo de profil" />
-              <div class="ml-8">
-                <h1 class="text-xl font-bold">Nom de l'etudiant :</h1>
-                <p class="mb-5">{{ authStore.user?.nom }}</p>
-                <h1 class="text-xl font-bold">Prenom de l'etudiant :</h1>
-                <p class="mb-5">{{ authStore.user?.prenom }}</p>
-                <h1 class="text-xl font-bold">Adresse de l'etudiant :</h1>
-                <p class="mb-5">{{ authStore.user?.email }}</p>
-              </div>
+      <div class="flex items-center">
+        <img
+          src="../../assets/images/ppp.png"
+          class="w-60 aspect-square rounded-full border object-cover"
+          alt="photo de profil"
+        />
+        <div class="ml-8">
+          <div class="flex">
+            <div>
+              <p>Prenom :</p>
+              <p class="mb-5 text-xl font-semibold">
+                {{ authStore.user?.prenom }}
+              </p>
             </div>
-
-            <div class="flex justify mt-8">
-                <div class="pr-8">
-                  <button  
-                    class="cursor-pointer text-bg-indigo-600 p-5  hover:underline" 
-                    @click="logout">
-                   Déconnexion
-                  </button>
-                </div>
-
-                <div class="">
-                  <Button class="cursor-pointer text-bg-indigo-600 p-5  hover:underline" 
-                    >Modifier</Button>
-                </div>
-          </div>
+            <div class="ml-8">
+              <p>Nom :</p>
+              <p class="mb-5 text-xl font-semibold">
+                {{ authStore.user?.nom }}
+              </p>
+            </div>
           </div>
 
+          <p>Adresse email :</p>
+          <p class="mb-5 text-xl font-semibold">{{ authStore.user?.email }}</p>
+
+          <div>
+            <button
+              class="cursor-pointer text-indigo-600 border border-indigo-600 hover:bg-indigo-600 hover:text-white text-lg font-medium px-5 py-3 rounded-xl"
+            >
+              Modifier
+            </button>
+
+            <button
+              class="ml-5 cursor-pointer bg-indigo-600 text-white hover:text-indigo-600 hover:border hover:border-indigo-600 hover:bg-white text-lg font-medium px-5 py-3 rounded-xl"
+              @click="logout"
+            >
+              Déconnexion
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-
-
-
-
 </template>
 
 <script setup>
