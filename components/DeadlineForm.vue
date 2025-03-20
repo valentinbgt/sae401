@@ -96,6 +96,27 @@
       </div>
     </div>
 
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label for="lieu" class="block font-semibold">Lieu de rendu</label>
+        <select
+          id="lieu"
+          v-model="formData.lieu"
+          required
+          class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
+        >
+          <option value="">Choisir</option>
+          <option value="Moodle">Moodle</option>
+          <option value="Email">Email</option>
+          <option value="Oral">Oral</option>
+          <option value="Partiel">Partiel</option>
+        </select>
+      </div>
+      <div>
+        <!-- This empty div is to maintain the grid layout -->
+      </div>
+    </div>
+
     <div>
       <label for="description" class="block font-semibold">Sujet</label>
       <textarea
