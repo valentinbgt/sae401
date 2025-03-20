@@ -114,7 +114,9 @@
         </select>
       </div>
       <div v-if="formData.lieu">
-        <label for="lieuDetails" class="block font-semibold">{{ lieuDetailsLabel }}</label>
+        <label for="lieuDetails" class="block font-semibold">{{
+          lieuDetailsLabel
+        }}</label>
         <input
           type="text"
           id="lieuDetails"
@@ -168,7 +170,7 @@ const lieuDetailsLabel = ref("Détails du lieu");
 const lieuDetailsPlaceholder = ref("");
 
 const updateLieuDetailsPlaceholder = () => {
-  switch(formData.value.lieu) {
+  switch (formData.value.lieu) {
     case "Moodle":
       lieuDetailsLabel.value = "Lien Moodle";
       lieuDetailsPlaceholder.value = "https://moodle.iutmmi.fr/...";
@@ -193,7 +195,12 @@ const updateLieuDetailsPlaceholder = () => {
 
 onMounted(async () => {
   try {
-    const response = await $fetch("/api/modules");
+    const response = await $fetch("/api/modules", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${authStore.token}`,
+      },
+    });
     if (response.status === "success") {
       modules.value = response.data;
     }
