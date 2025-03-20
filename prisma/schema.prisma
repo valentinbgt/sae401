@@ -38,6 +38,7 @@ model User {
   avertissement Int
   limite        Int
   statut        String
+  semestre      Int?
   deadlines     Deadline[]
   Module        Module?    @relation(fields: [moduleId], references: [id])
   moduleId      Int?
