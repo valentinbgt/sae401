@@ -2,25 +2,26 @@
   <TopNav :notif="true">Mes dates</TopNav>
   <p class="text-xl font-bold pb-5">Vous pouvez consulter et ajouter des dates ici.</p>
   
-  <div class="hover:underline mb-6">
-    <NuxtLink to="dates/nouvelle" class="p-3 bg-indigo-500 text-white rounded-lg">Ajouter une date</NuxtLink>
+  <div class="hover:underline mb-6 flex justify-end">
+    <NuxtLink to="dates/nouvelle" class="p-3 bg-indigo-500 text-white rounded-lg ">Ajouter une date</NuxtLink>
   </div>
   
   <LoadingOverlay v-if="loading" />
   
   <div v-else>
-    <div v-if="slots.length === 0" class="text-center py-10">
+    <div v-if="slots.length === 0" class="text-center ">
       <p class="text-lg text-gray-500">Vous n'avez pas encore ajouté de dates</p>
     </div>
     
     <div v-else class="border rounded-4xl py-6 flex items-center flex-col mb-10">
-      <h2 class="font-bold text-2xl mb-4">Mes rendus</h2>
+      <h2 class="font-bold text-2xl mb-4">Vous avez ajouté recemment </h2>
       <div
         v-for="(dayData, i) in slots"
         :key="i"
         class="w-full flex flex-col items-center"
       >
         <Separator>{{ Object.keys(dayData)[0] }}</Separator>
+        <div class="w-full flex flex-col items-center">
         <TimeSlot
           v-for="(slot, index) in dayData[Object.keys(dayData)[0]].daySlots"
           :key="index"
@@ -30,16 +31,9 @@
           :deadline-id="slot.id"
         />
       </div>
-    </div>
-  </div>
-  
-  <div class="relative overflow-hidden w-full h-screen">
-    <div class="absolute z-10 bottom-9 -right-10">
-      <img 
-          src="../../assets/images/logo_agenda.svg" 
-          alt="logo-agenda" 
-          class="w-100"
-      />
+
+      
+      </div>
     </div>
   </div>
 </template>
@@ -149,3 +143,5 @@ onMounted(async () => {
   }
 });
 </script>
+
+
