@@ -34,7 +34,7 @@
 
       <div class="flex justify-between mt-6 mx-12">
         <button @click="$emit('close')" class="px-6 py-3 bg-indigo-500 text-white rounded-lg cursor-pointer
-        hover:bg-indigo-600 disabled:bg-gray-400 text-lg">
+        hover:bg-indigo-600 disabled:bg-gray-400 font-semibold">
           Retour
         </button>
         <div>
