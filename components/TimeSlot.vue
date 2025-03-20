@@ -22,7 +22,7 @@
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router';
+import { useRouter } from "vue-router";
 
 const props = defineProps({
   time: String,
@@ -30,8 +30,8 @@ const props = defineProps({
   subTitle: String,
   deadlineId: {
     type: [Number, String],
-    default: null
-  }
+    default: null,
+  },
 });
 
 const router = useRouter();

@@ -11,13 +11,13 @@ export default defineEventHandler(async (event) => {
         message: "Token d'authentification manquant ou invalide",
       });
     }
-    
+
     const token = authHeader.split(" ")[1];
     const jwtSecret = process.env.JWT_SECRET;
     if (!jwtSecret) {
       throw new Error("JWT_SECRET non défini");
     }
-    
+
     // Verify and decode the token
     const decoded = jwt.verify(token, jwtSecret) as JwtPayload;
     const userId = decoded.userId;
@@ -52,7 +52,7 @@ export default defineEventHandler(async (event) => {
         querySemestre = [5, 6];
         break;
       default:
-        if(superUser) {
+        if (superUser) {
           querySemestre = [1, 2, 3, 4, 5, 6];
         } else {
           throw createError({
@@ -62,12 +62,11 @@ export default defineEventHandler(async (event) => {
         }
     }
 
-
     const modules = await prisma.module.findMany({
       where: {
         semestre: {
-          in: querySemestre
-        }
+          in: querySemestre,
+        },
       },
       orderBy: {
         code: "asc",
@@ -77,7 +76,7 @@ export default defineEventHandler(async (event) => {
     return {
       status: "success",
       data: modules,
-      userSemestre: user.semestre
+      userSemestre: user.semestre,
     };
   } catch (error: any) {
     console.error("Erreur lors de la récupération des modules:", error);

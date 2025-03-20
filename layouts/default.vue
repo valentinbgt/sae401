@@ -11,8 +11,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useAuthStore } from '~/stores/auth';
+import { ref, onMounted } from "vue";
+import { useAuthStore } from "~/stores/auth";
 
 const authStore = useAuthStore();
 const loading = ref(true);

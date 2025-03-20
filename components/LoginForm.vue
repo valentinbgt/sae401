@@ -35,7 +35,7 @@
           {{ loading ? "Connexion en cours..." : "Se connecter" }}
         </button>
       </div>
-      <div class="p-4 text-center ">
+      <div class="p-4 text-center">
         Vous n’avez pas de compte ?
         <NuxtLink
           class="underline text-indigo-500 font-semibold"

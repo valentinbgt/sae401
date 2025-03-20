@@ -11,9 +11,9 @@
     <div class="hidden lg:flex w-1/2 bg-indigo-500 relative overflow-hidden">
       <div class="absolute -bottom-10 -right-10">
         <img
-            src="../../assets/images/logo_agenda.svg"
-            alt="logo-agenda"
-            class="w-100"
+          src="../../assets/images/logo_agenda.svg"
+          alt="logo-agenda"
+          class="w-100"
         />
       </div>
     </div>

@@ -9,7 +9,7 @@ const router = useRouter();
 const authRoutes = ["/compte/inscription", "/compte/connexion"];
 
 const isAuthRoute = computed(() => authRoutes.includes(route.path));
-const currentLayout = computed(() => isAuthRoute.value ? 'auth' : 'default');
+const currentLayout = computed(() => (isAuthRoute.value ? "auth" : "default"));
 
 const checkAuthentication = async () => {
   if (authStore.token && !authStore.user) {
@@ -21,7 +21,7 @@ const checkAuthentication = async () => {
     router.push("/");
     return;
   }
-  
+
   // Redirect unauthenticated users to login
   if (!authStore.isAuthenticated && !isAuthRoute.value) {
     router.push("/compte/connexion");

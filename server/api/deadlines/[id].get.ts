@@ -3,14 +3,14 @@ import prisma from "~/server/utils/prisma";
 export default defineEventHandler(async (event) => {
   try {
     const id = event.context.params?.id;
-    
+
     if (!id || isNaN(Number(id))) {
       throw createError({
         statusCode: 400,
         message: "ID de deadline invalide",
       });
     }
-    
+
     const deadline = await prisma.deadline.findUnique({
       where: {
         id: Number(id),

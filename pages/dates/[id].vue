@@ -4,25 +4,22 @@
     <LoadingOverlay v-if="loading" />
     <div v-else-if="error" class="text-center py-10">
       <p class="text-red-500 text-xl">{{ error }}</p>
-      <button 
-        @click="goBack" 
+      <button
+        @click="goBack"
         class="mt-4 px-6 py-2 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600 transition"
       >
         Retour
       </button>
     </div>
     <div v-else>
-      <DeadlineDetails 
-        :deadline="deadline" 
-        @close="goBack"
-      />
+      <DeadlineDetails :deadline="deadline" @close="goBack" />
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { ref, onMounted } from "vue";
+import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
 const router = useRouter();
@@ -32,16 +29,16 @@ const error = ref(null);
 
 onMounted(async () => {
   const deadlineId = route.params.id;
-  
+
   if (!deadlineId) {
     error.value = "Aucune deadline spécifiée";
     loading.value = false;
     return;
   }
-  
+
   try {
     const response = await $fetch(`/api/deadlines/${deadlineId}`);
-    
+
     if (response.status === "success") {
       deadline.value = response.data;
     } else {
