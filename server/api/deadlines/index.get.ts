@@ -2,12 +2,20 @@ import prisma from "~/server/utils/prisma";
 
 export default defineEventHandler(async (event) => {
   try {
+    // Get query parameters
+    const query = getQuery(event);
+    const userId = query.userId ? String(query.userId) : undefined;
+    
+    // Build the query based on whether userId is provided
     const deadlines = await prisma.deadline.findMany({
+      where: userId ? {
+        auteur: parseInt(userId)
+      } : {},
       orderBy: {
         timestamp: "asc",
       },
       include: {
-        moduleRel: true, // Inclure les informations du module associé
+        moduleRel: true, // Include associated module information
       },
     });
 
