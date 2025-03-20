@@ -59,8 +59,6 @@ export default defineEventHandler(async (event) => {
       });
     }
 
-    console.log(modules);
-
     const deadlines = await prisma.deadline.findMany({
       where: {
         moduleRel: {
