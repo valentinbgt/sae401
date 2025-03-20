@@ -1,21 +1,31 @@
 <template>
   <TopNav :notif="true">Mes dates</TopNav>
-  <p class="text-xl font-bold pb-5">Vous pouvez consulter et ajouter des dates.</p>
-  
+  <p class="text-xl font-bold pb-5">
+    Vous pouvez consulter et ajouter des dates.
+  </p>
+
   <div class="mb-6 flex justify-end">
-    <NuxtLink to="dates/nouvelle" class="p-3 bg-indigo-500 font-semibold rounded-lg text-white
-    cursor-pointer hover:bg-indigo-600 disabled:bg-gray-400 ">Ajouter une date</NuxtLink>
+    <NuxtLink
+      to="dates/nouvelle"
+      class="p-3 bg-indigo-500 font-semibold rounded-lg text-white cursor-pointer hover:bg-indigo-600 disabled:bg-gray-400"
+      >Ajouter une date</NuxtLink
+    >
   </div>
-  
+
   <LoadingOverlay v-if="loading" />
-  
+
   <div v-else>
-    <div v-if="slots.length === 0" class="text-center ">
-      <p class="text-lg text-gray-500">Vous n'avez pas encore ajouté de dates</p>
+    <div v-if="slots.length === 0" class="text-center">
+      <p class="text-lg text-gray-500">
+        Vous n'avez pas encore ajouté de dates
+      </p>
     </div>
-    
-    <div v-else class="border rounded-4xl py-6 flex items-center flex-col mb-10">
-      <h2 class="font-bold text-2xl mb-4">Vous avez ajouté recemment </h2>
+
+    <div
+      v-else
+      class="border rounded-4xl py-6 flex items-center flex-col mb-10"
+    >
+      <h2 class="font-bold text-2xl mb-4">Vous avez ajouté :</h2>
       <div
         v-for="(dayData, i) in slots"
         :key="i"
@@ -23,24 +33,18 @@
       >
         <Separator>{{ Object.keys(dayData)[0] }}</Separator>
         <div class="w-full flex flex-col items-center">
-        <TimeSlot
-          v-for="(slot, index) in dayData[Object.keys(dayData)[0]].daySlots"
-          :key="index"
-          :time="slot.time"
-          :title="slot.title"
-          :sub-title="slot.subTitle"
-          :deadline-id="slot.id"
-        />
-      </div>
+          <TimeSlot
+            v-for="(slot, index) in dayData[Object.keys(dayData)[0]].daySlots"
+            :key="index"
+            :time="slot.time"
+            :title="slot.title"
+            :sub-title="slot.subTitle"
+            :deadline-id="slot.id"
+          />
+        </div>
       </div>
     </div>
-
-  
   </div>
-
-  
-
-
 </template>
 
 <script setup>
@@ -75,32 +79,37 @@ const timestampToTime = (date) => {
 onMounted(async () => {
   try {
     loading.value = true;
-    
+
     // Initialiser l'authentification
     authStore.initAuth();
-    
+
     // Si l'utilisateur a un token mais pas d'infos utilisateur, on essaie de récupérer ses infos
     if (authStore.token && !authStore.user) {
       await authStore.fetchUser();
     }
-    
+
     if (!authStore.user) {
       // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
-      return navigateTo('/compte/connexion');
+      return navigateTo("/compte/connexion");
     }
-    
+
     // Récupérer les deadlines de l'utilisateur
-    const response = await $fetch(`/api/deadlines?userId=${authStore.user.id}`);
+    const response = await $fetch("/api/deadlines?my", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${authStore.token}`,
+      },
+    });
 
     if (response.status === "success") {
       const deadlines = response.data;
-      
+
       // Si aucune deadline, on arrête ici
       if (deadlines.length === 0) {
         loading.value = false;
         return;
       }
-      
+
       // Organisation des deadlines par jour
       let lastDay = "";
       deadlines.forEach((e) => {
@@ -148,5 +157,3 @@ onMounted(async () => {
   }
 });
 </script>
-
-

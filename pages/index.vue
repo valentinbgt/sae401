@@ -52,6 +52,9 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
+import { useAuthStore } from "~/stores/auth";
+
+const authStore = useAuthStore();
 
 const slots = ref([]);
 
@@ -78,7 +81,12 @@ const timestampToTime = (date) => {
 // Charger les deadlines depuis l'API
 onMounted(async () => {
   try {
-    const response = await $fetch("/api/deadlines");
+    const response = await $fetch("/api/deadlines", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${authStore.token}`,
+      },
+    });
 
     if (response.status === "success") {
       const deadlines = response.data;
