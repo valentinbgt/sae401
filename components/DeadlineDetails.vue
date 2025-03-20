@@ -1,63 +1,62 @@
 <template>
-  <div v-if="deadline" class="bg-white rounded-2xl p-6 shadow-md w-full">
-    <h1 class="text-3xl font-bold text-indigo-700 mb-6">{{ deadline.titre }}</h1>
-    
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-      <div>
-        <h2 class="text-xl font-semibold mb-4 text-indigo-600">Informations</h2>
-        <div class="space-y-3">
+  <div v-if="deadline" class="grid grid-cols-3 gap-8 ">
+    <div class="border rounded-4xl py-6 px-8 flex flex-col col-span-2">
+      <h2 class="text-center text-2xl font-bold mb-6">{{ deadline.module }} : {{ deadline.titre }}</h2>
+      <div class="flex">
+        <div class="w-1/2 space-y-3">
           <div class="flex items-start">
-            <span class="font-semibold w-32">Module:</span>
-            <span>{{ deadline.module }}</span>
+            <div class="font-bold">Pour le </div>
+            <p class="ml-2 underline font-bold ">{{ formatDate(deadline.timestamp)}} | {{ formatTime(deadline.timestamp) }}</p>
           </div>
           <div class="flex items-start">
-            <span class="font-semibold w-32">Date limite:</span>
-            <span>{{ formatDate(deadline.timestamp) }}</span>
+            <div class="font-bold">Référent :</div>
+            <p class="ml-2">{{ deadline.prof }}</p>
           </div>
           <div class="flex items-start">
-            <span class="font-semibold w-32">Heure limite:</span>
-            <span>{{ formatTime(deadline.timestamp) }}</span>
+            <div class="font-bold">Format :</div>
+            <p class="ml-2">{{ deadline.type }}</p>
           </div>
           <div class="flex items-start">
-            <span class="font-semibold w-32">Lieu:</span>
-            <span>{{ deadline.lieu }}</span>
+            <div class="font-bold">Lieu :</div>
+            <p class="ml-2">{{ deadline.lieu }}</p>
           </div>
           <div class="flex items-start">
-            <span class="font-semibold w-32">Enseignant:</span>
-            <span>{{ deadline.prof }}</span>
-          </div>
-          <div class="flex items-start">
-            <span class="font-semibold w-32">Format:</span>
-            <span>{{ deadline.type }}</span>
-          </div>
-          <div class="flex items-start">
-            <span class="font-semibold w-32">Étendue:</span>
-            <span>{{ deadline.etendue }}</span>
+            <div class="font-bold">Étendue :</div>
+            <p class="ml-2">{{ deadline.etendue }}</p>
           </div>
         </div>
-      </div>
-      
-      <div>
-        <h2 class="text-xl font-semibold mb-4 text-indigo-600">Description</h2>
-        <div class="bg-gray-50 p-4 rounded-lg min-h-[200px]">
-          <p class="whitespace-pre-wrap">{{ deadline.description || "Aucune description disponible." }}</p>
+
+        <div class="w-1/2 pl-8">
+          <h3 class="text-xl font-semibold mb-4">Description</h3>
+          <p class="whitespace-pre-wrap break-words overflow-hidden text-ellipsis">{{ deadline.description || "Aucune description disponible." }}</p>
         </div>
       </div>
-    </div>
-    
-    <div class="flex justify-center mt-6">
-      <button
-        @click="$emit('close')"
-        class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition mr-4"
-      >
-        Retour
-      </button>
+
+      <div class="flex justify-between mt-6 mx-12">
+        <button @click="$emit('close')" class="px-6 py-3 bg-indigo-500 text-white rounded-lg cursor-pointer hover:bg-indigo-600 disabled:bg-gray-400">
+          Retour
+        </button>
+        <div>
+          <p class="font-bold underline text-sm ">Proposer une modification</p>
+          <p class="font-bold underline text-sm " >Signaler un problème</p>
+        </div>
+
+      </div>
     </div>
   </div>
+
   <div v-else class="flex justify-center items-center h-64">
     <p class="text-gray-500">Chargement des détails...</p>
   </div>
+
+  <div class="fixed bottom-0 -right-10 -mb-10 -ml-10">
+      <img src="../assets/images/logo_agenda.svg" alt="logo-agenda" class="w-100" />
+    </div>
+
+
+
 </template>
+
 
 <script setup>
 defineProps({
@@ -73,9 +72,8 @@ defineEmits(['close']);
 const formatDate = (timestamp) => {
   const date = new Date(timestamp);
   return date.toLocaleDateString('fr-FR', {
-    weekday: 'long',
     day: '2-digit',
-    month: 'long',
+    month: 'numeric',
     year: 'numeric'
   }).replace(/^\w/, c => c.toUpperCase());
 };
