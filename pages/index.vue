@@ -88,6 +88,14 @@ onMounted(async () => {
       },
     });
 
+    if (response.statusCode == 401 || response.statusCode == 403) {
+      console.error(
+        "Utilisateur non authentifié ou accès refusé, redirection vers la page de connexion."
+      );
+      route.push("/compte/connexion");
+      return;
+    }
+
     if (response.status === "success") {
       const deadlines = response.data;
 
