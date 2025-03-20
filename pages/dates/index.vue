@@ -31,11 +31,15 @@
           :deadline-id="slot.id"
         />
       </div>
-
-      
       </div>
     </div>
+
+  
   </div>
+
+  
+
+
 </template>
 
 <script setup>
