@@ -1,17 +1,36 @@
 <template>
   <form
     @submit.prevent="submitForm"
-    class="w-full max-w-lg mr-auto rounded-lg space-y-6"
+    class="w-full max-w-xl mr-auto rounded-lg space-y-6"
   >
-    <div>
-      <label for="title" class="block font-semibold">Nom du rendu</label>
-      <input
-        type="text"
-        id="title"
-        v-model="formData.titre"
-        required
-        class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
-      />
+    <div class="grid grid-cols-3 gap-4">
+      <div class="col-span-2">
+        <label for="title" class="block font-semibold">Nom du rendu</label>
+        <input
+          type="text"
+          id="title"
+          v-model="formData.titre"
+          required
+          class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
+        />
+      </div>
+
+      <div>
+        <label for="lieu" class="block font-semibold">Lieu de rendu</label>
+        <select
+          id="lieu"
+          v-model="formData.lieu"
+          required
+          class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
+          @change="updateLieuDetailsPlaceholder"
+        >
+          <option value="">Choisir</option>
+          <option value="Moodle">Moodle</option>
+          <option value="Email">Email</option>
+          <option value="Oral">Oral</option>
+          <option value="Partiel">Partiel</option>
+        </select>
+      </div>
     </div>
 
     <div class="grid grid-cols-3 gap-4">
@@ -138,7 +157,7 @@
 
     <button
       type="submit"
-      class="w-full p-3 text-white bg-indigo-500 rounded-lg hover:bg-indigo-600"
+      class="w-full p-3 text-white bg-indigo-500 cursor-pointer font-semibold rounded-lg hover:bg-indigo-600 disabled:bg-gray-400"
     >
       Ajouter un rendu
     </button>

@@ -1,9 +1,10 @@
 <template>
   <TopNav :notif="true">Mes dates</TopNav>
-  <p class="text-xl font-bold pb-5">Vous pouvez consulter et ajouter des dates ici.</p>
+  <p class="text-xl font-bold pb-5">Vous pouvez consulter et ajouter des dates.</p>
   
-  <div class="hover:underline mb-6 flex justify-end">
-    <NuxtLink to="dates/nouvelle" class="p-3 bg-indigo-500 text-white rounded-lg ">Ajouter une date</NuxtLink>
+  <div class="mb-6 flex justify-end">
+    <NuxtLink to="dates/nouvelle" class="p-3 bg-indigo-500 font-semibold rounded-lg text-white
+    cursor-pointer hover:bg-indigo-600 disabled:bg-gray-400 ">Ajouter une date</NuxtLink>
   </div>
   
   <LoadingOverlay v-if="loading" />
