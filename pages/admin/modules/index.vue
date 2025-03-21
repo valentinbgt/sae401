@@ -10,13 +10,17 @@
         Ajouter un module
       </NuxtLink>
     </div>
-    
+
     <!-- Search and filter section -->
     <div class="bg-white p-4 mb-6 rounded shadow">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <!-- Search bar -->
         <div>
-          <label for="search" class="block text-sm font-medium text-gray-700 mb-1">Rechercher</label>
+          <label
+            for="search"
+            class="block text-sm font-medium text-gray-700 mb-1"
+            >Rechercher</label
+          >
           <input
             type="text"
             id="search"
@@ -25,10 +29,14 @@
             class="w-full p-2 border border-gray-300 rounded"
           />
         </div>
-        
+
         <!-- Semester filter -->
         <div>
-          <label for="semestre" class="block text-sm font-medium text-gray-700 mb-1">Filtrer par semestre</label>
+          <label
+            for="semestre"
+            class="block text-sm font-medium text-gray-700 mb-1"
+            >Filtrer par semestre</label
+          >
           <select
             id="semestre"
             v-model="semestreFilter"
@@ -43,10 +51,14 @@
             <option value="6">S6</option>
           </select>
         </div>
-        
+
         <!-- WR/WS filter -->
         <div>
-          <label for="moduleType" class="block text-sm font-medium text-gray-700 mb-1">Filtrer par type</label>
+          <label
+            for="moduleType"
+            class="block text-sm font-medium text-gray-700 mb-1"
+            >Filtrer par type</label
+          >
           <select
             id="moduleType"
             v-model="moduleTypeFilter"
@@ -59,7 +71,7 @@
         </div>
       </div>
     </div>
-    
+
     <div v-if="loading" class="text-center py-8">
       <LoadingOverlay />
     </div>
@@ -67,27 +79,50 @@
       {{ error }}
     </div>
     <div v-else class="overflow-x-auto">
-      <div v-if="filteredModules.length === 0" class="text-center py-8 text-gray-500">
+      <div
+        v-if="filteredModules.length === 0"
+        class="text-center py-8 text-gray-500"
+      >
         Aucun module ne correspond aux critères de recherche
       </div>
       <table v-else class="min-w-full bg-white border border-gray-200">
         <thead>
           <tr class="bg-gray-100">
-            <th @click="sortBy('id')" class="py-2 px-4 border text-left cursor-pointer">
+            <th
+              @click="sortBy('id')"
+              class="py-2 px-4 border text-left cursor-pointer"
+            >
               ID
-              <span v-if="sortColumn === 'id'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
+              <span v-if="sortColumn === 'id'">{{
+                sortDirection === "asc" ? "▲" : "▼"
+              }}</span>
             </th>
-            <th @click="sortBy('code')" class="py-2 px-4 border text-left cursor-pointer">
+            <th
+              @click="sortBy('code')"
+              class="py-2 px-4 border text-left cursor-pointer"
+            >
               Code
-              <span v-if="sortColumn === 'code'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
+              <span v-if="sortColumn === 'code'">{{
+                sortDirection === "asc" ? "▲" : "▼"
+              }}</span>
             </th>
-            <th @click="sortBy('titre')" class="py-2 px-4 border text-left cursor-pointer">
+            <th
+              @click="sortBy('titre')"
+              class="py-2 px-4 border text-left cursor-pointer"
+            >
               Titre
-              <span v-if="sortColumn === 'titre'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
+              <span v-if="sortColumn === 'titre'">{{
+                sortDirection === "asc" ? "▲" : "▼"
+              }}</span>
             </th>
-            <th @click="sortBy('semestre')" class="py-2 px-4 border text-left cursor-pointer">
+            <th
+              @click="sortBy('semestre')"
+              class="py-2 px-4 border text-left cursor-pointer"
+            >
               Semestre
-              <span v-if="sortColumn === 'semestre'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
+              <span v-if="sortColumn === 'semestre'">{{
+                sortDirection === "asc" ? "▲" : "▼"
+              }}</span>
             </th>
             <th class="py-2 px-4 border text-left">Actions</th>
           </tr>
@@ -177,39 +212,40 @@ const getModuleType = (code) => {
 // Computed property for filtered and sorted modules
 const filteredModules = computed(() => {
   return modules.value
-    .filter(module => {
+    .filter((module) => {
       // Filter by search query (case insensitive)
-      const matchesSearch = !searchQuery.value || 
+      const matchesSearch =
+        !searchQuery.value ||
         module.code.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
         module.titre.toLowerCase().includes(searchQuery.value.toLowerCase());
-      
+
       // Filter by semester
-      const matchesSemestre = semestreFilter.value === "all" || 
+      const matchesSemestre =
+        semestreFilter.value === "all" ||
         module.semestre.toString() === semestreFilter.value;
-      
+
       // Filter by module type (WR/WS)
       const moduleType = getModuleType(module.code);
-      const matchesType = moduleTypeFilter.value === "all" || 
+      const matchesType =
+        moduleTypeFilter.value === "all" ||
         moduleType === moduleTypeFilter.value;
-      
+
       return matchesSearch && matchesSemestre && matchesType;
     })
     .sort((a, b) => {
       // Sort by the selected column
-      if (sortColumn.value === 'id') {
-        return sortDirection.value === 'asc' 
-          ? a.id - b.id 
-          : b.id - a.id;
-      } else if (sortColumn.value === 'semestre') {
-        return sortDirection.value === 'asc' 
-          ? a.semestre - b.semestre 
+      if (sortColumn.value === "id") {
+        return sortDirection.value === "asc" ? a.id - b.id : b.id - a.id;
+      } else if (sortColumn.value === "semestre") {
+        return sortDirection.value === "asc"
+          ? a.semestre - b.semestre
           : b.semestre - a.semestre;
       } else {
         // For string columns (code, titre)
-        const aValue = a[sortColumn.value]?.toLowerCase() || '';
-        const bValue = b[sortColumn.value]?.toLowerCase() || '';
-        return sortDirection.value === 'asc' 
-          ? aValue.localeCompare(bValue) 
+        const aValue = a[sortColumn.value]?.toLowerCase() || "";
+        const bValue = b[sortColumn.value]?.toLowerCase() || "";
+        return sortDirection.value === "asc"
+          ? aValue.localeCompare(bValue)
           : bValue.localeCompare(aValue);
       }
     });
@@ -219,11 +255,11 @@ const filteredModules = computed(() => {
 const sortBy = (column) => {
   if (sortColumn.value === column) {
     // If already sorting by this column, toggle direction
-    sortDirection.value = sortDirection.value === 'asc' ? 'desc' : 'asc';
+    sortDirection.value = sortDirection.value === "asc" ? "desc" : "asc";
   } else {
     // If sorting by a new column, default to ascending
     sortColumn.value = column;
-    sortDirection.value = 'asc';
+    sortDirection.value = "asc";
   }
 };
 
