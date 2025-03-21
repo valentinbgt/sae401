@@ -81,7 +81,13 @@
           class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
         >
           <option value="">Choisir</option>
-          <option value="prof1">Professeur 1</option>
+          <option
+            v-for="teacher in teachers"
+            :key="teacher.id"
+            :value="`${teacher.prenom} ${teacher.nom}`"
+          >
+            {{ teacher.prenom }}{{ teacher.nom }}
+          </option>
         </select>
       </div>
     </div>
@@ -185,6 +191,7 @@ const formData = ref({
 });
 
 const modules = ref([]);
+const teachers = ref([]);
 const lieuDetailsLabel = ref("Détails du lieu");
 const lieuDetailsPlaceholder = ref("");
 
@@ -214,17 +221,29 @@ const updateLieuDetailsPlaceholder = () => {
 
 onMounted(async () => {
   try {
-    const response = await $fetch("/api/modules", {
+    // Fetch modules
+    const modulesResponse = await $fetch("/api/modules", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${authStore.token}`,
       },
     });
-    if (response.status === "success") {
-      modules.value = response.data;
+    if (modulesResponse.status === "success") {
+      modules.value = modulesResponse.data;
+    }
+
+    // Fetch teachers
+    const teachersResponse = await $fetch("/api/users/teachers", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${authStore.token}`,
+      },
+    });
+    if (teachersResponse.status === "success") {
+      teachers.value = teachersResponse.data;
     }
   } catch (error) {
-    console.error("Erreur lors de la récupération des modules:", error);
+    console.error("Erreur lors de la récupération des données:", error);
   }
 });
 
