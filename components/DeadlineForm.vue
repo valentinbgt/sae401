@@ -17,78 +17,124 @@
 
       <div>
         <label for="lieu" class="block font-semibold">Lieu de rendu</label>
-        <select
-          id="lieu"
-          v-model="formData.lieu"
-          required
-          class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
-          @change="updateLieuDetailsPlaceholder"
-        >
-          <option value="">Choisir</option>
-          <option value="Moodle">Moodle</option>
-          <option value="Email">Email</option>
-          <option value="Oral">Oral</option>
-          <option value="Partiel">Partiel</option>
-        </select>
+        <div class="relative">
+          <input
+            id="lieu"
+            v-model="formData.lieu"
+            required
+            class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
+            @focus="showLieuOptions = true"
+            @blur="setTimeout(() => (showLieuOptions = false), 200)"
+            @input="updateLieuDetailsPlaceholder"
+            type="text"
+            autocomplete="off"
+          />
+          <div
+            v-if="showLieuOptions"
+            class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto"
+          >
+            <div
+              v-for="lieu in filteredLieux"
+              :key="lieu"
+              class="p-2 hover:bg-gray-100 cursor-pointer"
+              @mousedown="
+                formData.lieu = lieu;
+                updateLieuDetailsPlaceholder();
+              "
+            >
+              {{ lieu }}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="grid grid-cols-3 gap-4">
       <div>
         <label for="module" class="block font-semibold">Module</label>
-        <select
-          id="module"
-          v-model="formData.module"
-          required
-          class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
-        >
-          <option value="">Choisir</option>
-          <option
-            v-for="module in modules"
-            :key="module.code"
-            :value="module.code"
+        <div class="relative">
+          <input
+            id="module"
+            v-model="formData.module"
+            required
+            class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
+            @focus="showModuleOptions = true"
+            @blur="setTimeout(() => (showModuleOptions = false), 200)"
+            type="text"
+            autocomplete="off"
+          />
+          <div
+            v-if="showModuleOptions"
+            class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto"
           >
-            {{ module.code }}
-          </option>
-          <option value="autre">Autre</option>
-        </select>
+            <div
+              v-for="module in filteredModules"
+              :key="module.code"
+              class="p-2 hover:bg-gray-100 cursor-pointer"
+              @mousedown="formData.module = module.code"
+            >
+              {{ module.code }}
+            </div>
+          </div>
+        </div>
       </div>
 
       <div>
         <label for="format" class="block font-semibold">Format</label>
-        <select
-          id="format"
-          v-model="formData.type"
-          required
-          class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
-        >
-          <option value="pdf">pdf</option>
-          <option value="jpg">jpg</option>
-          <option value="png">png</option>
-          <option value="doc/docx">doc/docx</option>
-          <option value="ppt/pptx">ppt/pptx</option>
-          <option value="zip">zip</option>
-          <option value="autre">autre</option>
-        </select>
+        <div class="relative">
+          <input
+            id="format"
+            v-model="formData.type"
+            required
+            class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
+            @focus="showFormatOptions = true"
+            @blur="setTimeout(() => (showFormatOptions = false), 200)"
+            type="text"
+            autocomplete="off"
+          />
+          <div
+            v-if="showFormatOptions"
+            class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto"
+          >
+            <div
+              v-for="format in filteredFormats"
+              :key="format"
+              class="p-2 hover:bg-gray-100 cursor-pointer"
+              @mousedown="formData.type = format"
+            >
+              {{ format }}
+            </div>
+          </div>
+        </div>
       </div>
 
       <div>
         <label for="prof" class="block font-semibold">Enseignant</label>
-        <select
-          id="prof"
-          v-model="formData.prof"
-          required
-          class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
-        >
-          <option value="">Choisir</option>
-          <option
-            v-for="teacher in teachers"
-            :key="teacher.id"
-            :value="`${teacher.prenom} ${teacher.nom}`"
+        <div class="relative">
+          <input
+            id="prof"
+            v-model="formData.prof"
+            required
+            class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
+            @focus="showTeacherOptions = true"
+            @blur="setTimeout(() => (showTeacherOptions = false), 200)"
+            type="text"
+            autocomplete="off"
+          />
+          <div
+            v-if="showTeacherOptions"
+            class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto"
           >
-            {{ teacher.prenom }} {{ teacher.nom }}
-          </option>
-        </select>
+            <div
+              v-for="teacher in filteredTeachers"
+              :key="teacher.id"
+              class="p-2 hover:bg-gray-100 cursor-pointer"
+              @mousedown="formData.prof = `${teacher.prenom} ${teacher.nom}`"
+            >
+              {{ teacher.prenom }} {{ teacher.nom }}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -122,22 +168,6 @@
     </div>
 
     <div class="grid grid-cols-2 gap-4">
-      <div>
-        <label for="lieu" class="block font-semibold">Lieu de rendu</label>
-        <select
-          id="lieu"
-          v-model="formData.lieu"
-          required
-          class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
-          @change="updateLieuDetailsPlaceholder"
-        >
-          <option value="">Choisir</option>
-          <option value="Moodle">Moodle</option>
-          <option value="Email">Email</option>
-          <option value="Oral">Oral</option>
-          <option value="Partiel">Partiel</option>
-        </select>
-      </div>
       <div v-if="formData.lieu">
         <label for="lieuDetails" class="block font-semibold">{{
           lieuDetailsLabel
@@ -171,7 +201,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { useAuthStore } from "~/stores/auth";
 import { useRouter } from "vue-router";
 
@@ -194,6 +224,43 @@ const modules = ref([]);
 const teachers = ref([]);
 const lieuDetailsLabel = ref("Détails du lieu");
 const lieuDetailsPlaceholder = ref("");
+
+const showModuleOptions = ref(false);
+const showFormatOptions = ref(false);
+const showTeacherOptions = ref(false);
+const showLieuOptions = ref(false);
+
+const filteredModules = computed(() => {
+  if (!formData.value.module) return modules.value;
+  return modules.value.filter((module) =>
+    module.code.toLowerCase().includes(formData.value.module.toLowerCase())
+  );
+});
+
+const filteredFormats = computed(() => {
+  const formats = ["pdf", "jpg", "png", "doc/docx", "ppt/pptx", "zip", "autre"];
+  if (!formData.value.type) return formats;
+  return formats.filter((format) =>
+    format.toLowerCase().includes(formData.value.type.toLowerCase())
+  );
+});
+
+const filteredTeachers = computed(() => {
+  if (!formData.value.prof) return teachers.value;
+  return teachers.value.filter((teacher) =>
+    `${teacher.prenom} ${teacher.nom}`
+      .toLowerCase()
+      .includes(formData.value.prof.toLowerCase())
+  );
+});
+
+const filteredLieux = computed(() => {
+  const lieux = ["Moodle", "Email", "Oral", "Partiel"];
+  if (!formData.value.lieu) return lieux;
+  return lieux.filter((lieu) =>
+    lieu.toLowerCase().includes(formData.value.lieu.toLowerCase())
+  );
+});
 
 const updateLieuDetailsPlaceholder = () => {
   switch (formData.value.lieu) {
