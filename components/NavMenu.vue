@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="md:ml-56"></div>
+  <div class="fixed">
     <button @click="toggleMenu" class="md:hidden p-4 text-black z-30">
       <svg
         class="w-6 h-6"
@@ -26,7 +27,7 @@
     <nav
       :class="{
         'translate-x-0': isMenuOpen,
-        '-translate-x-full': !isMenuOpen
+        '-translate-x-full': !isMenuOpen,
       }"
       class="bg-indigo-500 w-56 h-screen fixed top-0 left-0 transform transition-transform duration-300 ease-in-out z-30 md:relative md:translate-x-0 flex flex-col items-center p-6"
     >
@@ -54,7 +55,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from "vue";
 
 const isMenuOpen = ref(false);
 
