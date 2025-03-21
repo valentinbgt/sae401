@@ -17,4 +17,16 @@ export default defineNuxtConfig({
   },
   modules: ["@pinia/nuxt"],
   plugins: ["~/plugins/auth.js"],
+  nitro: {
+    routeRules: {
+      "/api/calendar/**": {
+        cors: true,
+        headers: {
+          "Access-Control-Allow-Methods": "GET",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers": "*",
+        },
+      },
+    },
+  },
 });

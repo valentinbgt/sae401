@@ -39,6 +39,7 @@ model User {
   limite        Int
   statut        String
   semestre      Int?
+  icsToken      String?    @unique
   deadlines     Deadline[]
   Module        Module?    @relation(fields: [moduleId], references: [id])
   moduleId      Int?
