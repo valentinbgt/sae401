@@ -1,6 +1,6 @@
 <template>
   <TopNav :notif="true">Tableau de bord</TopNav>
-  <div class="grid grid-cols-3 gap-8 grid-rows-2">
+  <div class="flex flex-col md:grid md:grid-cols-3 gap-8 md:grid-rows-2 p-4 md:p-8">
     <div
         class="border rounded-4xl py-6 flex items-center flex-col col-span-2 row-span-2"
     >
