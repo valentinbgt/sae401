@@ -34,6 +34,8 @@ export default defineEventHandler(async (event) => {
         statut: true,
         prof: true,
         admin: true,
+        profilePicture: true,
+        semestre: true,
       },
     });
 

@@ -10,10 +10,9 @@
         />
       </div>
       <div class="flex items-center">
-        <img
-          src="../../assets/images/ppp.png"
-          class="w-60 aspect-square rounded-full border object-cover"
-          alt="Photo de profil"
+        <ProfilePictureUpload
+          :currentImage="authStore.user?.profilePicture"
+          @update:image="updateProfilePicture"
         />
         <div class="ml-8">
           <div class="flex">
@@ -52,12 +51,16 @@
       </div>
     </div>
   </div>
+  <LoadingOverlay v-if="isLoading" />
 </template>
 
 <script setup>
 import { useAuthStore } from "~/stores/auth";
+import { ref } from "vue";
 
 const authStore = useAuthStore();
+const isLoading = ref(false);
+const errorMessage = ref("");
 
 // Charger les données utilisateur au chargement du composant
 onMounted(async () => {
@@ -65,6 +68,25 @@ onMounted(async () => {
     await authStore.fetchUser();
   }
 });
+
+const updateProfilePicture = async (imageData) => {
+  isLoading.value = true;
+  errorMessage.value = "";
+
+  try {
+    await authStore.updateProfile({
+      profilePicture: imageData,
+    });
+
+    // Show success notification if needed
+  } catch (error) {
+    console.error("Error updating profile picture:", error);
+    errorMessage.value =
+      "Une erreur est survenue lors de la mise à jour de la photo de profil";
+  } finally {
+    isLoading.value = false;
+  }
+};
 
 const logout = () => {
   authStore.logout();
@@ -74,6 +96,4 @@ const logout = () => {
 if (!authStore.user) {
   navigateTo("/compte/connexion");
 }
-
-console.log(authStore.user);
 </script>

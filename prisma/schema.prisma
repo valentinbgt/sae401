@@ -28,21 +28,22 @@ model Deadline {
 }
 
 model User {
-  id            Int        @id @default(autoincrement())
-  prof          Boolean
-  admin         Boolean
-  nom           String
-  prenom        String
-  email         String     @unique
-  password      String
-  avertissement Int
-  limite        Int
-  statut        String
-  semestre      Int?
-  icsToken      String?    @unique
-  deadlines     Deadline[]
-  Module        Module?    @relation(fields: [moduleId], references: [id])
-  moduleId      Int?
+  id             Int        @id @default(autoincrement())
+  prof           Boolean
+  admin          Boolean
+  nom            String
+  prenom         String
+  email          String     @unique
+  password       String
+  profilePicture String?    @db.LongText
+  avertissement  Int
+  limite         Int
+  statut         String
+  semestre       Int?
+  icsToken       String?    @unique
+  deadlines      Deadline[]
+  Module         Module?    @relation(fields: [moduleId], references: [id])
+  moduleId       Int?
 }
 
 model Module {

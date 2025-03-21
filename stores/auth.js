@@ -55,6 +55,27 @@ export const useAuthStore = defineStore("auth", {
       }
     },
 
+    async updateProfile(profileData) {
+      try {
+        const response = await $fetch("/api/auth/update-profile", {
+          method: "POST",
+          body: profileData,
+          headers: {
+            Authorization: `Bearer ${this.token}`,
+          },
+        });
+
+        if (response.status === "success" && response.user) {
+          this.user = response.user;
+        }
+
+        return response;
+      } catch (error) {
+        console.error("Erreur lors de la mise à jour du profil:", error);
+        throw error;
+      }
+    },
+
     logout() {
       this.token = null;
       this.user = null;

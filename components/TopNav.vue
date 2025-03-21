@@ -10,7 +10,17 @@
 
       <template v-if="authStore.isAuthenticated">
         <NuxtLink to="/compte" class="pl-4 flex items-center">
-          <img src="/icons/account.svg" />
+          <div
+            class="w-[38px] h-[38px] rounded-full overflow-hidden flex items-center justify-center"
+          >
+            <img
+              v-if="authStore.user?.profilePicture"
+              :src="authStore.user.profilePicture"
+              class="object-cover w-full h-full rounded-full"
+              alt="Photo de profil"
+            />
+            <img v-else src="/icons/account.svg" alt="Icône compte" />
+          </div>
           <span class="text-lg font-medium pl-2">{{
             authStore.user?.prenom
           }}</span>
