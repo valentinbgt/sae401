@@ -3,7 +3,7 @@
       @submit.prevent="submitForm"
       class="w-full max-w-xl mr-auto rounded-lg space-y-6"
   >
-    <div class="grid grid-cols-3 gap-4">
+    <div class="grid xl:grid-cols-3 lg:grid-cols-3 gap-4">
       <div class="col-span-1">
         <label for="title" class="block font-semibold">Titre du rendu</label>
         <input
@@ -187,7 +187,7 @@
       <textarea
           id="description"
           v-model="formData.description"
-          class="w-full mt-1 p-2 border border-gray-300 rounded-lg h-32"
+          class="w-full mt-1 p-2 border border-gray-300 rounded-lg h-28"
       ></textarea>
     </div>
 
