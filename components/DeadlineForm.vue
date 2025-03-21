@@ -24,7 +24,7 @@
             required
             class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
             @focus="showLieuOptions = true"
-            @blur="setTimeout(() => (showLieuOptions = false), 200)"
+            @blur="handleBlur('lieu')"
             @input="updateLieuDetailsPlaceholder"
             type="text"
             autocomplete="off"
@@ -37,8 +37,8 @@
               v-for="lieu in filteredLieux"
               :key="lieu"
               class="p-2 hover:bg-gray-100 cursor-pointer"
-              @mousedown="
-                formData.lieu = lieu;
+              @mousedown.prevent="
+                selectOption('lieu', lieu);
                 updateLieuDetailsPlaceholder();
               "
             >
@@ -59,7 +59,7 @@
             required
             class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
             @focus="showModuleOptions = true"
-            @blur="setTimeout(() => (showModuleOptions = false), 200)"
+            @blur="handleBlur('module')"
             type="text"
             autocomplete="off"
           />
@@ -71,7 +71,7 @@
               v-for="module in filteredModules"
               :key="module.code"
               class="p-2 hover:bg-gray-100 cursor-pointer"
-              @mousedown="formData.module = module.code"
+              @mousedown.prevent="selectOption('module', module.code)"
             >
               {{ module.code }}
             </div>
@@ -88,7 +88,7 @@
             required
             class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
             @focus="showFormatOptions = true"
-            @blur="setTimeout(() => (showFormatOptions = false), 200)"
+            @blur="handleBlur('format')"
             type="text"
             autocomplete="off"
           />
@@ -100,7 +100,7 @@
               v-for="format in filteredFormats"
               :key="format"
               class="p-2 hover:bg-gray-100 cursor-pointer"
-              @mousedown="formData.type = format"
+              @mousedown.prevent="selectOption('format', format)"
             >
               {{ format }}
             </div>
@@ -117,7 +117,7 @@
             required
             class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
             @focus="showTeacherOptions = true"
-            @blur="setTimeout(() => (showTeacherOptions = false), 200)"
+            @blur="handleBlur('teacher')"
             type="text"
             autocomplete="off"
           />
@@ -129,7 +129,9 @@
               v-for="teacher in filteredTeachers"
               :key="teacher.id"
               class="p-2 hover:bg-gray-100 cursor-pointer"
-              @mousedown="formData.prof = `${teacher.prenom} ${teacher.nom}`"
+              @mousedown.prevent="
+                selectOption('teacher', `${teacher.prenom} ${teacher.nom}`)
+              "
             >
               {{ teacher.prenom }} {{ teacher.nom }}
             </div>
@@ -229,6 +231,49 @@ const showModuleOptions = ref(false);
 const showFormatOptions = ref(false);
 const showTeacherOptions = ref(false);
 const showLieuOptions = ref(false);
+
+// Function to handle option selection and hide dropdown
+const selectOption = (type, value) => {
+  switch (type) {
+    case "module":
+      formData.value.module = value;
+      showModuleOptions.value = false;
+      break;
+    case "format":
+      formData.value.type = value;
+      showFormatOptions.value = false;
+      break;
+    case "teacher":
+      formData.value.prof = value;
+      showTeacherOptions.value = false;
+      break;
+    case "lieu":
+      formData.value.lieu = value;
+      showLieuOptions.value = false;
+      break;
+  }
+};
+
+// Function to handle blur events
+const handleBlur = (type) => {
+  // Use setTimeout to allow the click event to fire first
+  setTimeout(() => {
+    switch (type) {
+      case "module":
+        showModuleOptions.value = false;
+        break;
+      case "format":
+        showFormatOptions.value = false;
+        break;
+      case "teacher":
+        showTeacherOptions.value = false;
+        break;
+      case "lieu":
+        showLieuOptions.value = false;
+        break;
+    }
+  }, 150);
+};
 
 const filteredModules = computed(() => {
   if (!formData.value.module) return modules.value;
