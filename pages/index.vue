@@ -16,7 +16,8 @@
           :key="index"
           :time="slot.time"
           :title="slot.title"
-            :sub-title="slot.subTitle"
+          :sub-title="slot.subTitle"
+          :deadline-id="slot.id"
         />
       </div>
       <div class="mt-2 h-8 w-full">
