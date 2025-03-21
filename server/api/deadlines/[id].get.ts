@@ -17,6 +17,13 @@ export default defineEventHandler(async (event) => {
       },
       include: {
         moduleRel: true, // Include related module information
+        user: {
+          select: {
+            id: true,
+            nom: true,
+            prenom: true,
+          },
+        }, // Include author information
       },
     });
 
@@ -27,9 +34,17 @@ export default defineEventHandler(async (event) => {
       });
     }
 
+    // Rename the user field to auteur for consistency with frontend
+    const deadlineWithAuteur = {
+      ...deadline,
+      auteur: deadline.user,
+      user: undefined, // Mark user as optional
+    };
+    delete deadlineWithAuteur.user;
+
     return {
       status: "success",
-      data: deadline,
+      data: deadlineWithAuteur,
     };
   } catch (error: any) {
     console.error("Erreur lors de la récupération de la deadline:", error);

@@ -29,6 +29,12 @@
             <div class="font-bold">Étendue :</div>
             <p class="ml-2">{{ deadline.etendue }}</p>
           </div>
+          <div v-if="deadline.auteur" class="flex items-start">
+            <div class="font-bold">Créé par :</div>
+            <p class="ml-2">
+              {{ deadline.auteur.prenom }} {{ deadline.auteur.nom }}
+            </p>
+          </div>
         </div>
 
         <div class="w-1/2 pl-8">
