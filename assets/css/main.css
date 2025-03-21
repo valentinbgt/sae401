@@ -20,4 +20,10 @@ html, body {
   font-family: 'Satoshi', sans-serif;
   
 }
+/* Supprime la bordure interne du calendrier */
+.vc-container {
+  border: none !important;
+  box-shadow: none !important;
+}
+
 
