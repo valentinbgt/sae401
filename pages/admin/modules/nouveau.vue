@@ -80,7 +80,7 @@
 
       <button
           type="submit"
-          class="w-full p-3 text-white bg-indigo-500 rounded-lg hover:bg-indigo-600 disabled:bg-gray-400"
+          class="hover:cursor-pointer w-full p-3 text-white bg-indigo-500 rounded-lg hover:bg-indigo-600 disabled:bg-gray-400"
           :disabled="loading || !(moduleCode && formData.titre)"
       >
         {{ loading ? "Création en cours..." : "Ajouter le module" }}
