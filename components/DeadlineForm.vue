@@ -5,7 +5,7 @@
   >
     <div class="grid grid-cols-3 gap-4">
       <div class="col-span-2">
-        <label for="title" class="block font-semibold">Nom du rendu</label>
+        <label for="title" class="block font-semibold">Titre du rendu</label>
         <input
           type="text"
           id="title"
@@ -16,7 +16,38 @@
       </div>
 
       <div>
-        <label for="lieu" class="block font-semibold">Lieu de rendu</label>
+        <label for="module" class="block font-semibold">Module</label>
+        <div class="relative">
+          <input
+            id="module"
+            v-model="formData.module"
+            required
+            class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
+            @focus="showModuleOptions = true"
+            @blur="handleBlur('module')"
+            type="text"
+            autocomplete="off"
+          />
+          <div
+            v-if="showModuleOptions"
+            class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto"
+          >
+            <div
+              v-for="module in filteredModules"
+              :key="module.code"
+              class="p-2 hover:bg-gray-100 cursor-pointer"
+              @mousedown.prevent="selectOption('module', module.code)"
+            >
+              {{ module.code }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-3 gap-4">
+      <div>
+        <label for="lieu" class="block font-semibold">Où rendre</label>
         <div class="relative">
           <input
             id="lieu"
@@ -47,38 +78,22 @@
           </div>
         </div>
       </div>
+
+      <div v-if="formData.lieu" class="col-span-2">
+        <label for="lieuDetails" class="block font-semibold">{{
+          lieuDetailsLabel
+        }}</label>
+        <input
+          type="text"
+          id="lieuDetails"
+          v-model="formData.lieuDetails"
+          :placeholder="lieuDetailsPlaceholder"
+          class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
+        />
+      </div>
     </div>
 
     <div class="grid grid-cols-3 gap-4">
-      <div>
-        <label for="module" class="block font-semibold">Module</label>
-        <div class="relative">
-          <input
-            id="module"
-            v-model="formData.module"
-            required
-            class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
-            @focus="showModuleOptions = true"
-            @blur="handleBlur('module')"
-            type="text"
-            autocomplete="off"
-          />
-          <div
-            v-if="showModuleOptions"
-            class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto"
-          >
-            <div
-              v-for="module in filteredModules"
-              :key="module.code"
-              class="p-2 hover:bg-gray-100 cursor-pointer"
-              @mousedown.prevent="selectOption('module', module.code)"
-            >
-              {{ module.code }}
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div>
         <label for="format" class="block font-semibold">Format</label>
         <div class="relative">
@@ -106,6 +121,20 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <div>
+        <label for="tp" class="block font-semibold">Étendue</label>
+        <select
+          id="tp"
+          v-model="formData.etendue"
+          required
+          class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
+        >
+          <option value="TP">TP</option>
+          <option value="TD">TD</option>
+          <option value="CM">CM</option>
+        </select>
       </div>
 
       <div>
@@ -150,35 +179,6 @@
           id="timestamp"
           v-model="formData.timestamp"
           required
-          class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
-        />
-      </div>
-
-      <div>
-        <label for="tp" class="block font-semibold">Étendue</label>
-        <select
-          id="tp"
-          v-model="formData.etendue"
-          required
-          class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
-        >
-          <option value="TP">TP</option>
-          <option value="TD">TD</option>
-          <option value="CM">CM</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="grid grid-cols-2 gap-4">
-      <div v-if="formData.lieu">
-        <label for="lieuDetails" class="block font-semibold">{{
-          lieuDetailsLabel
-        }}</label>
-        <input
-          type="text"
-          id="lieuDetails"
-          v-model="formData.lieuDetails"
-          :placeholder="lieuDetailsPlaceholder"
           class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
         />
       </div>
