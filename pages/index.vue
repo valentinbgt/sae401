@@ -35,9 +35,13 @@
       
     </div>
     <div class="border rounded-4xl py-6 flex items-center flex-col">
-      <h2 class="font-bold text-2xl mb-12 ">Actions</h2>
-      <NuxtLink to="dates/nouvelle" class="w-full flex items-center flex-col ">
-        <div class=" text-white bg-indigo-500 rounded-2xl py-4 w-10/12 text-center font-bold text-xl ">Ajouter une date</div>
+      <h2 class="font-bold text-2xl mb-12">Actions</h2>
+      <NuxtLink to="dates/nouvelle" class="w-full flex items-center flex-col">
+        <div
+          class="text-white bg-indigo-500 rounded-2xl py-4 w-10/12 text-center font-bold text-xl"
+        >
+          Ajouter une date
+        </div>
       </NuxtLink>
         <div class="text-white bg-indigo-500 rounded-2xl mt-4 py-4 w-10/12 text-center font-bold text-xl ">Historique</div>
     </div>
