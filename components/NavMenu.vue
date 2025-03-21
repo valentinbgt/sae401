@@ -28,7 +28,7 @@
         'translate-x-0': isMenuOpen,
         '-translate-x-full': !isMenuOpen
       }"
-      class="bg-indigo-500 w-56 h-screen fixed top-0 left-0 transform transition-transform duration-300 ease-in-out md:relative md:translate-x-0 flex flex-col items-center p-6"
+      class="bg-indigo-500 w-56 h-screen fixed top-0 left-0 transform transition-transform duration-300 ease-in-out md:relative md:translate-x-0 flex flex-col items-center p-6 z-10"
     >
       <NuxtLink to="/" class="mb-5 mt-4">
         <img src="/logo.svg" alt="Logo du cahier de texte" class="w-24" />
