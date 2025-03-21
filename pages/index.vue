@@ -1,8 +1,8 @@
 <template>
   <TopNav :notif="true">Tableau de bord</TopNav>
-  <div class="grid grid-cols-3 gap-8 grid-rows-2">
+  <div class="flex flex-col md:grid md:grid-cols-3 gap-8 md:grid-rows-2">
     <div
-      class="border rounded-4xl py-6 flex items-center flex-col col-span-2 row-span-2"
+      class="border rounded-4xl py-6 flex items-center flex-col col-span-1 md:col-span-2 row-span-1 md:row-span-2"
     >
       <h2 class="font-bold text-2xl">Prochains rendus</h2>
       <div
@@ -23,8 +23,8 @@
       <div class="mt-2 h-8 w-full">
         <div class="w-full h-full flex justify-center items-center">
           <div class="w-11/12 flex items-center justify-between">
-            <span class="text-lg font-medium"><- Page précédente</span>
-            <span class="text-lg font-medium">Page suivante -></span>
+            <span class="text-lg font-medium cursor-pointer"><- Page précédente</span>
+            <span class="text-lg font-medium cursor-pointer">Page suivante -></span>
           </div>
         </div>
       </div>
@@ -41,11 +41,7 @@
           Ajouter une date
         </div>
       </NuxtLink>
-      <div
-        class="text-white bg-indigo-500 rounded-2xl mt-4 py-4 w-10/12 text-center font-bold text-xl"
-      >
-        Historique
-      </div>
+      <div class="text-white bg-indigo-500 rounded-2xl mt-4 py-4 w-10/12 text-center font-bold text-xl">Historique</div>
     </div>
   </div>
 </template>
