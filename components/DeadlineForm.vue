@@ -86,7 +86,7 @@
             :key="teacher.id"
             :value="`${teacher.prenom} ${teacher.nom}`"
           >
-            {{ teacher.prenom }}{{ teacher.nom }}
+            {{ teacher.prenom }} {{ teacher.nom }}
           </option>
         </select>
       </div>
