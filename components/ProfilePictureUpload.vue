@@ -26,14 +26,24 @@
     <div v-else-if="errorMessage" class="mt-2 text-sm text-red-600">
       {{ errorMessage }}
     </div>
-    <button
-      v-if="hasChanges"
-      @click="saveProfilePicture"
-      class="mt-4 cursor-pointer bg-indigo-600 text-white hover:bg-indigo-700 text-sm font-medium px-4 py-2 rounded-xl"
-      :disabled="isUploading"
-    >
-      Enregistrer
-    </button>
+    <div class="flex mt-4 space-x-2">
+      <button
+        v-if="hasChanges"
+        @click="saveProfilePicture"
+        class="cursor-pointer bg-indigo-600 text-white hover:bg-indigo-700 text-sm font-medium px-4 py-2 rounded-xl"
+        :disabled="isUploading"
+      >
+        Enregistrer
+      </button>
+      <button
+        v-if="canDelete"
+        @click="deleteProfilePicture"
+        class="cursor-pointer bg-red-600 text-white hover:bg-red-700 text-sm font-medium px-4 py-2 rounded-xl"
+        :disabled="isUploading"
+      >
+        Supprimer
+      </button>
+    </div>
   </div>
 </template>
 
@@ -52,7 +62,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["update:image"]);
+const emit = defineEmits(["update:image", "delete:image"]);
 const fileInput = ref(null);
 const previewImage = ref(props.currentImage);
 const newImageData = ref(null);
@@ -72,6 +82,11 @@ const displayImage = computed(() => {
 
 const hasChanges = computed(() => {
   return newImageData.value !== null;
+});
+
+const canDelete = computed(() => {
+  // Show delete button if there's a current image (and not just using the default)
+  return props.currentImage !== null && !hasChanges.value;
 });
 
 const triggerFileInput = () => {
@@ -121,6 +136,22 @@ const saveProfilePicture = async () => {
   } catch (error) {
     console.error("Error uploading profile picture:", error);
     errorMessage.value = "Une erreur est survenue lors du téléchargement";
+  } finally {
+    isUploading.value = false;
+  }
+};
+
+const deleteProfilePicture = async () => {
+  isUploading.value = true;
+  errorMessage.value = "";
+
+  try {
+    // Emit event to delete the profile picture
+    emit("delete:image");
+    previewImage.value = null;
+  } catch (error) {
+    console.error("Error deleting profile picture:", error);
+    errorMessage.value = "Une erreur est survenue lors de la suppression";
   } finally {
     isUploading.value = false;
   }

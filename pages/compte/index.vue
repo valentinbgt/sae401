@@ -13,6 +13,7 @@
         <ProfilePictureUpload
           :currentImage="authStore.user?.profilePicture"
           @update:image="updateProfilePicture"
+          @delete:image="deleteProfilePicture"
         />
         <div class="ml-8">
           <div class="flex">
@@ -83,6 +84,23 @@ const updateProfilePicture = async (imageData) => {
     console.error("Error updating profile picture:", error);
     errorMessage.value =
       "Une erreur est survenue lors de la mise à jour de la photo de profil";
+  } finally {
+    isLoading.value = false;
+  }
+};
+
+const deleteProfilePicture = async () => {
+  isLoading.value = true;
+  errorMessage.value = "";
+
+  try {
+    await authStore.updateProfile({
+      profilePicture: null,
+    });
+  } catch (error) {
+    console.error("Error deleting profile picture:", error);
+    errorMessage.value =
+      "Une erreur est survenue lors de la suppression de la photo de profil";
   } finally {
     isLoading.value = false;
   }
