@@ -1,11 +1,7 @@
 <template>
   <TopNav :notif="true">Synchroniser un calendrier</TopNav>
   <div class="container mx-auto mt-8 px-4">
-    <div class="bg-white rounded-lg shadow-md p-6 max-w-3xl mx-auto">
-      <h2 class="text-2xl font-bold mb-6">
-        Synchronisation avec votre calendrier
-      </h2>
-
+    <div class="bg-white rounded-lg border p-6 max-w-3xl mx-auto">
       <div v-if="loading" class="flex justify-center my-8">
         <LoadingOverlay />
       </div>
@@ -44,7 +40,7 @@
               :href="icsUrl"
               target="_blank"
               rel="external nofollow"
-              class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors inline-flex items-center"
+              class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-800 transition-colors inline-flex items-center"
               @click.prevent="downloadIcsFile"
             >
               <svg
@@ -114,7 +110,7 @@
           <p class="mb-4">Vous n'avez pas encore de lien de calendrier ICS.</p>
           <button
             @click="generateToken"
-            class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors inline-flex items-center"
+            class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-800 transition-colors inline-flex items-center"
             :disabled="generating"
           >
             <svg
@@ -163,14 +159,14 @@
           </h3>
           <div class="space-y-4 text-gray-700">
             <div>
-              <h4 class="font-medium">Google Calendar</h4>
+              <h4 class="font-medium text-indigo-600">Google Calendar</h4>
               <ol class="list-decimal list-inside ml-4 mt-2">
                 <li>
                   Allez sur
                   <a
                     href="https://calendar.google.com/"
                     target="_blank"
-                    class="text-blue-600 hover:underline"
+                    class="text-indigo-600 hover:text-indigo-600 hover:underline"
                     >Google Calendar</a
                   >
                 </li>
@@ -205,6 +201,14 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="absolute -bottom-10 -right-10">
+    <img
+      src="../assets/images/logo_agenda.svg"
+      alt="logo-agenda"
+      class="w-100"
+    />
   </div>
 </template>
 
