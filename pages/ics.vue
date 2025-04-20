@@ -203,7 +203,7 @@
     </div>
   </div>
 
-  <div class="absolute -bottom-10 -right-10">
+  <div class="absolute z-[-1] -bottom-10 -right-10">
     <img
       src="../assets/images/logo_agenda.svg"
       alt="logo-agenda"
