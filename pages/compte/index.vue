@@ -36,13 +36,13 @@
 
           <div>
             <button
-              class="cursor-pointer text-indigo-600 border border-indigo-600 hover:bg-indigo-600 hover:text-white text-lg font-medium px-5 py-3 rounded-xl"
+              class="mb-2 cursor-pointer text-indigo-600 border border-indigo-600 hover:bg-indigo-600 hover:text-white text-lg font-medium px-5 py-3 rounded-xl "
             >
               Modifier
             </button>
-
+            <br />
             <button
-              class="ml-5 cursor-pointer bg-indigo-600 text-white hover:text-indigo-600 hover:border hover:border-indigo-600 hover:bg-white text-lg font-medium px-5 py-3 rounded-xl"
+              class="cursor-pointer bg-indigo-600 text-white hover:text-indigo-600 hover:border hover:border-indigo-600 hover:bg-white text-lg font-medium px-5 py-3 rounded-xl"
               @click="logout"
             >
               Déconnexion

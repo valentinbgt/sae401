@@ -1,14 +1,13 @@
 <template>
-  <div class="absolute z-10 bottom-9 -right-10">
-    <img
-      src="../../../assets/images/logo_agenda.svg"
-      alt="logo-agenda"
-      class="w-100"
-    />
-  </div>
-
-  <TopNav :notif="true">Ajouter un module</TopNav>
-  <div class="w-full max-w-lg bg-white rounded-lg space-y-6">
+      <div class="fixed bottom-0 z-[-1] -right-10 -mb-10 -ml-10">
+        <img
+          src="../../../assets/images/logo_agenda.svg"
+          alt="logo-agenda"
+          class="w-100"
+        />
+      </div>
+<TopNav :notif="true">Ajouter un module</TopNav>
+  <div class="w-full max-w-lg rounded-lg space-y-6">
     <form @submit.prevent="submitForm" class="w-full space-y-6">
       <div>
         <label for="type" class="block font-semibold">Type</label>
@@ -17,7 +16,7 @@
           v-model="formData.type"
           @change="updateForm"
           required
-          class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
+          class="w-full mt-1 p-2 border bg-white  border-gray-300 rounded-lg"
         >
           <option value="WR">WR</option>
           <option value="WS">WS</option>
@@ -31,7 +30,7 @@
           v-model="formData.semestre"
           @change="updateForm"
           required
-          class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
+          class="w-full mt-1 p-2 border bg-white border-gray-300 rounded-lg"
         >
           <option v-for="n in 6" :key="n" :value="n">S{{ n }}</option>
         </select>
@@ -44,7 +43,7 @@
           v-model="formData.number"
           @change="updateForm"
           required
-          class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
+          class="w-full mt-1 p-2 border bg-white border-gray-300 rounded-lg"
         >
           <option
             v-if="formData.type && formData.semestre"
@@ -66,7 +65,7 @@
           v-model="formData.titre"
           required
           placeholder="Ex: Développement web"
-          class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
+          class="w-full mt-1 p-2 border bg-white border-gray-300 rounded-lg"
         />
       </div>
 
@@ -84,13 +83,14 @@
 
       <button
         type="submit"
-        class="hover:cursor-pointer w-full p-3 text-white bg-indigo-500 rounded-lg hover:bg-indigo-600 disabled:bg-gray-400"
+        class="hover:cursor-pointer w-full p-3 text-white bg-indigo-500 rounded-lg hover:bg-indigo-600 "
         :disabled="loading || !(moduleCode && formData.titre)"
       >
         {{ loading ? "Création en cours..." : "Ajouter le module" }}
       </button>
     </form>
   </div>
+
 </template>
 
 <script setup>
