@@ -48,12 +48,11 @@
         >
           <option
             v-if="formData.type && formData.semestre"
-            v-for="n in 20"
-            :key="n"
-            :value="n"
+            v-for="code in moduleCodes"
+            :key="code"
+            :value="code"
           >
-            {{ formData.type }}{{ formData.semestre
-            }}{{ String(n).padStart(2, "0") }}
+            {{ code }}
           </option>
         </select>
       </div>
@@ -94,8 +93,10 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
+import { useAuthStore } from "~/stores/auth";
 
+const authStore = useAuthStore();
 const formData = ref({
   type: "",
   semestre: null,
@@ -106,8 +107,9 @@ const formData = ref({
 const loading = ref(false);
 const error = ref("");
 const router = useRouter();
+const existingModules = ref([]);
+const moduleCodes = ref([]);
 
-// Computed property pour générer automatiquement le code
 const moduleCode = computed(() => {
   if (formData.value.type && formData.value.semestre && formData.value.number) {
     return (
@@ -119,8 +121,50 @@ const moduleCode = computed(() => {
   return "";
 });
 
+const fetchExistingModules = async () => {
+  try {
+    const response = await $fetch("/api/modules/all", {
+      headers: {
+        Authorization: `Bearer ${authStore.token}`,
+      },
+    });
+
+    if (response.status === "success") {
+      existingModules.value = response.data;
+      console.log(response.data);
+    }
+  } catch (err) {
+    console.error("Erreur lors de la récupération des modules existants:", err);
+    error.value = "Erreur lors de la récupération des modules existants";
+  }
+};
+
+onMounted(async () => {
+  await fetchExistingModules();
+});
+
 const updateForm = () => {
-  console.log("Update form");
+  moduleCodes.value = [];
+
+  let existingModulesArray = [];
+  existingModules.value.forEach((e) => {
+    existingModulesArray.push(e.code);
+  });
+
+  if (formData.value.type && formData.value.semestre) {
+    for (let n = 1; n <= 20; n++) {
+      const code =
+        formData.value.type +
+        formData.value.semestre +
+        String(n).padStart(2, "0");
+
+      if (!existingModulesArray.includes(code)) {
+        moduleCodes.value.push(code);
+      }
+    }
+  }
+
+  console.log(moduleCodes.value);
 };
 
 const submitForm = async () => {
