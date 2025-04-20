@@ -70,11 +70,11 @@
       </div>
 
       <div
-        v-if="moduleCode && formData.titre"
+        v-if="formData.number && formData.titre"
         class="p-3 bg-gray-100 rounded-lg"
       >
         Vous êtes sur le point d'ajouter :
-        <strong>{{ moduleCode }} - {{ formData.titre }}</strong>
+        <strong>{{ formData.number }} - {{ formData.titre }}</strong>
       </div>
 
       <div v-if="error" class="text-red-500">
@@ -84,7 +84,7 @@
       <button
         type="submit"
         class="hover:cursor-pointer w-full p-3 text-white bg-indigo-500 rounded-lg hover:bg-indigo-600 disabled:bg-gray-400"
-        :disabled="loading || !(moduleCode && formData.titre)"
+        :disabled="loading || !(formData.number && formData.titre)"
       >
         {{ loading ? "Création en cours..." : "Ajouter le module" }}
       </button>
@@ -109,17 +109,6 @@ const error = ref("");
 const router = useRouter();
 const existingModules = ref([]);
 const moduleCodes = ref([]);
-
-const moduleCode = computed(() => {
-  if (formData.value.type && formData.value.semestre && formData.value.number) {
-    return (
-      formData.value.type +
-      formData.value.semestre +
-      String(formData.value.number).padStart(2, "0")
-    );
-  }
-  return "";
-});
 
 const fetchExistingModules = async () => {
   try {
@@ -176,12 +165,12 @@ const submitForm = async () => {
     const duplicateCheck = await $fetch("/api/modules/check-duplicate", {
       method: "POST",
       body: {
-        code: moduleCode.value,
+        code: formData.value.number,
       },
     });
 
     if (duplicateCheck.exists) {
-      error.value = `Un module avec le code ${moduleCode.value} existe déjà`;
+      error.value = `Un module avec le code ${formData.value.number} existe déjà`;
       loading.value = false;
       return;
     }
@@ -191,7 +180,7 @@ const submitForm = async () => {
       method: "POST",
       body: {
         ...formData.value,
-        code: moduleCode.value,
+        code: formData.value.number,
       },
     });
 
