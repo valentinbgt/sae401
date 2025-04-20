@@ -1,32 +1,26 @@
 <template>
   <TopNav :notif="true">Tableau de bord</TopNav>
-  <div class="flex flex-col md:grid md:grid-cols-3 gap-8 md:grid-rows-2 p-4 md:p-8">
+  <div
+    class="flex flex-col md:grid md:grid-cols-3 gap-8 md:grid-rows-2 p-4 md:p-8"
+  >
     <div
-        class="border rounded-4xl py-6 flex items-center flex-col col-span-2 row-span-2"
+      class="border rounded-4xl py-6 flex items-center flex-col col-span-2 row-span-2"
     >
       <h2 class="font-bold text-2xl">Prochains rendus</h2>
       <div
-          v-for="(dayData, i) in slots"
-          :key="i"
-          class="w-full flex flex-col items-center"
+        v-for="(dayData, i) in slots"
+        :key="i"
+        class="w-full flex flex-col items-center"
       >
         <Separator>{{ Object.keys(dayData)[0] }}</Separator>
         <TimeSlot
-            v-for="(slot, index) in dayData[Object.keys(dayData)[0]].daySlots"
-            :key="index"
-            :time="slot.time"
-            :title="slot.title"
-            :sub-title="slot.subTitle"
-            :deadline-id="slot.id"
+          v-for="(slot, index) in dayData[Object.keys(dayData)[0]].daySlots"
+          :key="index"
+          :time="slot.time"
+          :title="slot.title"
+          :sub-title="slot.subTitle"
+          :deadline-id="slot.id"
         />
-      </div>
-      <div class="mt-2 h-8 w-full">
-        <div class="w-full h-full flex justify-center items-center">
-          <div class="w-11/12 flex items-center justify-between">
-            <span class="text-lg font-medium"><- Page précédente</span>
-            <span class="text-lg font-medium">Page suivante -></span>
-          </div>
-        </div>
       </div>
     </div>
     <div class="border rounded-4xl py-6 flex items-center flex-col">
@@ -36,13 +30,13 @@
       <h2 class="font-bold text-2xl mb-12">Actions</h2>
       <NuxtLink to="dates/nouvelle" class="w-full flex items-center flex-col">
         <div
-            class="text-white bg-indigo-500 rounded-2xl py-4 w-10/12 text-center font-bold text-xl"
+          class="text-white bg-indigo-500 rounded-2xl py-4 w-10/12 text-center font-bold text-xl"
         >
           Ajouter une date
         </div>
       </NuxtLink>
       <div
-          class="text-white bg-indigo-500 rounded-2xl mt-4 py-4 w-10/12 text-center font-bold text-xl"
+        class="text-white bg-indigo-500 rounded-2xl mt-4 py-4 w-10/12 text-center font-bold text-xl"
       >
         Historique
       </div>
@@ -74,8 +68,8 @@ const timestampToDate = (date) => {
 const timestampToTime = (date) => {
   const dateObj = new Date(date);
   return dateObj
-      .toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })
-      .replace(":", "h");
+    .toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })
+    .replace(":", "h");
 };
 
 // Charger les deadlines depuis l'API
@@ -90,7 +84,7 @@ onMounted(async () => {
 
     if (response.statusCode == 401 || response.statusCode == 403) {
       console.error(
-          "Utilisateur non authentifié ou accès refusé, redirection vers la page de connexion."
+        "Utilisateur non authentifié ou accès refusé, redirection vers la page de connexion."
       );
       route.push("/compte/connexion");
       return;
@@ -103,8 +97,8 @@ onMounted(async () => {
       let lastDay = "";
       deadlines.forEach((e) => {
         let time,
-            title,
-            subTitle = "";
+          title,
+          subTitle = "";
 
         time = timestampToTime(e.timestamp);
         title = `${e.module} - ${e.titre}`;

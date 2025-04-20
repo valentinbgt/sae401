@@ -1,17 +1,17 @@
 <template>
   <form
-      @submit.prevent="submitForm"
-      class="w-full max-w-xl mr-auto rounded-lg space-y-6"
+    @submit.prevent="submitForm"
+    class="w-full max-w-xl mr-auto rounded-lg space-y-6"
   >
     <div class="grid xl:grid-cols-3 lg:grid-cols-3 gap-4">
       <div class="col-span-1">
         <label for="title" class="block font-semibold">Titre du rendu</label>
         <input
-            type="text"
-            id="title"
-            v-model="formData.titre"
-            required
-            class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
+          type="text"
+          id="title"
+          v-model="formData.titre"
+          required
+          class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
         />
       </div>
 
@@ -19,24 +19,24 @@
         <label for="module" class="block font-semibold">Module</label>
         <div class="relative">
           <input
-              id="module"
-              v-model="formData.module"
-              required
-              class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
-              @focus="showModuleOptions = true"
-              @blur="handleBlur('module')"
-              type="text"
-              autocomplete="off"
+            id="module"
+            v-model="formData.module"
+            required
+            class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
+            @focus="showModuleOptions = true"
+            @blur="handleBlur('module')"
+            type="text"
+            autocomplete="off"
           />
           <div
-              v-if="showModuleOptions"
-              class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto"
+            v-if="showModuleOptions"
+            class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto"
           >
             <div
-                v-for="module in filteredModules"
-                :key="module.code"
-                class="p-2 hover:bg-gray-100 cursor-pointer"
-                @mousedown.prevent="selectOption('module', module.code)"
+              v-for="module in filteredModules"
+              :key="module.code"
+              class="p-2 hover:bg-gray-100 cursor-pointer"
+              @mousedown.prevent="selectOption('module', module.code)"
             >
               {{ module.code }}
             </div>
@@ -46,14 +46,14 @@
 
       <div class="col-span-1">
         <label for="timestamp" class="block font-semibold"
-        >Date et heure limite</label
+          >Date et heure limite</label
         >
         <input
-            type="datetime-local"
-            id="timestamp"
-            v-model="formData.timestamp"
-            required
-            class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
+          type="datetime-local"
+          id="timestamp"
+          v-model="formData.timestamp"
+          required
+          class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
         />
       </div>
     </div>
@@ -63,25 +63,25 @@
         <label for="lieu" class="block font-semibold">Où rendre</label>
         <div class="relative">
           <input
-              id="lieu"
-              v-model="formData.lieu"
-              required
-              class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
-              @focus="showLieuOptions = true"
-              @blur="handleBlur('lieu')"
-              @input="updateLieuDetailsPlaceholder"
-              type="text"
-              autocomplete="off"
+            id="lieu"
+            v-model="formData.lieu"
+            required
+            class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
+            @focus="showLieuOptions = true"
+            @blur="handleBlur('lieu')"
+            @input="updateLieuDetailsPlaceholder"
+            type="text"
+            autocomplete="off"
           />
           <div
-              v-if="showLieuOptions"
-              class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto"
+            v-if="showLieuOptions"
+            class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto"
           >
             <div
-                v-for="lieu in filteredLieux"
-                :key="lieu"
-                class="p-2 hover:bg-gray-100 cursor-pointer"
-                @mousedown.prevent="
+              v-for="lieu in filteredLieux"
+              :key="lieu"
+              class="p-2 hover:bg-gray-100 cursor-pointer"
+              @mousedown.prevent="
                 selectOption('lieu', lieu);
                 updateLieuDetailsPlaceholder();
               "
@@ -94,14 +94,14 @@
 
       <div v-if="formData.lieu" class="col-span-2">
         <label for="lieuDetails" class="block font-semibold">{{
-            lieuDetailsLabel
-          }}</label>
+          lieuDetailsLabel
+        }}</label>
         <input
-            type="text"
-            id="lieuDetails"
-            v-model="formData.lieuDetails"
-            :placeholder="lieuDetailsPlaceholder"
-            class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
+          type="text"
+          id="lieuDetails"
+          v-model="formData.lieuDetails"
+          :placeholder="lieuDetailsPlaceholder"
+          class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
         />
       </div>
     </div>
@@ -111,24 +111,24 @@
         <label for="format" class="block font-semibold">Format</label>
         <div class="relative">
           <input
-              id="format"
-              v-model="formData.type"
-              required
-              class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
-              @focus="showFormatOptions = true"
-              @blur="handleBlur('format')"
-              type="text"
-              autocomplete="off"
+            id="format"
+            v-model="formData.type"
+            required
+            class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
+            @focus="showFormatOptions = true"
+            @blur="handleBlur('format')"
+            type="text"
+            autocomplete="off"
           />
           <div
-              v-if="showFormatOptions"
-              class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto"
+            v-if="showFormatOptions"
+            class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto"
           >
             <div
-                v-for="format in filteredFormats"
-                :key="format"
-                class="p-2 hover:bg-gray-100 cursor-pointer"
-                @mousedown.prevent="selectOption('format', format)"
+              v-for="format in filteredFormats"
+              :key="format"
+              class="p-2 hover:bg-gray-100 cursor-pointer"
+              @mousedown.prevent="selectOption('format', format)"
             >
               {{ format }}
             </div>
@@ -139,10 +139,10 @@
       <div>
         <label for="tp" class="block font-semibold">Étendue</label>
         <select
-            id="tp"
-            v-model="formData.etendue"
-            required
-            class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
+          id="tp"
+          v-model="formData.etendue"
+          required
+          class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
         >
           <option value="TP">TP</option>
           <option value="TD">TD</option>
@@ -154,24 +154,24 @@
         <label for="prof" class="block font-semibold">Enseignant</label>
         <div class="relative">
           <input
-              id="prof"
-              v-model="formData.prof"
-              required
-              class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
-              @focus="showTeacherOptions = true"
-              @blur="handleBlur('teacher')"
-              type="text"
-              autocomplete="off"
+            id="prof"
+            v-model="formData.prof"
+            required
+            class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
+            @focus="showTeacherOptions = true"
+            @blur="handleBlur('teacher')"
+            type="text"
+            autocomplete="off"
           />
           <div
-              v-if="showTeacherOptions"
-              class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto"
+            v-if="showTeacherOptions"
+            class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto"
           >
             <div
-                v-for="teacher in filteredTeachers"
-                :key="teacher.id"
-                class="p-2 hover:bg-gray-100 cursor-pointer"
-                @mousedown.prevent="
+              v-for="teacher in filteredTeachers"
+              :key="teacher.id"
+              class="p-2 hover:bg-gray-100 cursor-pointer"
+              @mousedown.prevent="
                 selectOption('teacher', `${teacher.prenom} ${teacher.nom}`)
               "
             >
@@ -185,21 +185,20 @@
     <div>
       <label for="description" class="block font-semibold">Sujet</label>
       <textarea
-          id="description"
-          v-model="formData.description"
-          class="w-full mt-1 p-2 border border-gray-300 rounded-lg h-28"
+        id="description"
+        v-model="formData.description"
+        class="w-full mt-1 p-2 border border-gray-300 rounded-lg h-28"
       ></textarea>
     </div>
 
     <button
-        type="submit"
-        class="w-full p-3 text-white bg-indigo-500 cursor-pointer font-semibold rounded-lg hover:bg-indigo-600 disabled:bg-gray-400"
+      type="submit"
+      class="w-full p-3 text-white bg-indigo-500 cursor-pointer font-semibold rounded-lg hover:bg-indigo-600 disabled:bg-gray-400"
     >
       Ajouter un rendu
     </button>
   </form>
 </template>
-
 
 <script setup>
 import { ref, onMounted, computed } from "vue";

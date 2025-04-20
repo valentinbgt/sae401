@@ -2,8 +2,6 @@
   <TopNav :notif="true">Synchroniser un calendrier</TopNav>
   <div class="container mx-auto mt-8 px-4">
     <div class="bg-white rounded-lg border p-6 max-w-3xl mx-auto">
-
-
       <div v-if="loading" class="flex justify-center my-8">
         <LoadingOverlay />
       </div>
@@ -205,15 +203,13 @@
     </div>
   </div>
 
-
-  
-      <div class="absolute -bottom-10 -right-10">
-        <img
-          src="../assets/images/logo_agenda.svg"
-          alt="logo-agenda"
-          class="w-100"
-        />
-      </div>
+  <div class="absolute -bottom-10 -right-10">
+    <img
+      src="../assets/images/logo_agenda.svg"
+      alt="logo-agenda"
+      class="w-100"
+    />
+  </div>
 </template>
 
 <script setup>
