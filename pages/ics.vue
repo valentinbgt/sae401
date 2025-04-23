@@ -1,7 +1,7 @@
 <template>
   <TopNav :notif="true">Synchroniser un calendrier</TopNav>
-  <div class="container mx-auto mt-8 px-4">
-    <div class="bg-white rounded-lg border p-6 max-w-3xl mx-auto">
+  <div class="container mx-auto mt-8 px-4 ">
+    <div class="bg-white rounded-lg border p-6 max-w-3xl mx-auto" >
       <div v-if="loading" class="flex justify-center my-8">
         <LoadingOverlay />
       </div>
@@ -203,11 +203,11 @@
     </div>
   </div>
 
-  <div class="absolute z-[-1] -bottom-10 -right-10">
+  <div class="fixed bottom-0 -right-10 -mb-10 -ml-10 w-40 sm:w-40 md:w-52 lg:w-68 xl:w-100">
     <img
-      src="../assets/images/logo_agenda.svg"
-      alt="logo-agenda"
-      class="w-100"
+        src="../assets/images/logo_agenda.svg"
+        alt="logo-agenda"
+        class="w-full"
     />
   </div>
 </template>

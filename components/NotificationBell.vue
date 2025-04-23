@@ -1,5 +1,5 @@
 <template>
-  <span class="pl-4">
+  <span >
     <img v-if="new" src="/icons/bell_new.svg" />
     <img v-else src="/icons/bell.svg" />
   </span>
