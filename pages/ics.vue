@@ -1,7 +1,7 @@
 <template>
   <TopNav :notif="true">Synchroniser un calendrier</TopNav>
-  <div class="container mx-auto mt-8 px-4">
-    <div class="bg-white rounded-lg border p-6 max-w-3xl mx-auto">
+  <div class="container mx-auto mt-8 px-4 ">
+    <div class="bg-white rounded-lg border p-6 max-w-3xl mx-auto" >
       <div v-if="loading" class="flex justify-center my-8">
         <LoadingOverlay />
       </div>
