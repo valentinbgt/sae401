@@ -1,11 +1,13 @@
 <template>
-  <div v-if="deadline" class="grid grid-cols-3 gap-8">
-    <div class="border rounded-4xl py-6 px-8 flex flex-col col-span-2">
-      <h2 class="text-center text-2xl font-bold mb-6">
+  <div v-if="deadline" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <!-- Section principale -->
+    <div class="border rounded-4xl py-6 px-4 lg:px-8 flex flex-col col-span-1 lg:col-span-2 bg-white">
+      <h2 class="text-center text-xl lg:text-2xl font-bold mb-6">
         {{ deadline.module }} : {{ deadline.titre }}
       </h2>
-      <div class="flex">
-        <div class="w-1/2 space-y-3">
+      <div class="flex flex-col lg:flex-row">
+        <!-- Informations principales -->
+        <div class="w-full lg:w-1/2 space-y-3">
           <div class="flex items-start">
             <div class="font-bold">Pour le</div>
             <p class="ml-2 underline font-bold">
@@ -37,8 +39,9 @@
           </div>
         </div>
 
-        <div class="w-1/2 pl-8">
-          <h3 class="text-xl font-semibold mb-4">Description</h3>
+        <!-- Description -->
+        <div class="w-full lg:w-1/2 lg:pl-8 mt-6 lg:mt-0">
+          <h3 class="text-lg lg:text-xl font-semibold mb-4">Description</h3>
           <p
             class="whitespace-pre-wrap break-words overflow-hidden text-ellipsis"
           >
@@ -47,31 +50,39 @@
         </div>
       </div>
 
-      <div class="flex justify-between mt-6 mx-12">
+      <!-- Boutons -->
+      <div class="flex flex-col lg:flex-row justify-between mt-6 mx-4 lg:mx-12 space-y-4 lg:space-y-0">
         <button
           @click="$emit('close')"
           class="px-6 py-3 bg-indigo-500 text-white rounded-lg cursor-pointer hover:bg-indigo-600 disabled:bg-gray-400 font-semibold"
         >
           Retour
         </button>
-        <div>
-          <p class="font-bold underline text-sm">Proposer une modification</p>
-          <p class="font-bold underline text-sm">Signaler un problème</p>
+        <div class="flex flex-col text-center lg:text-left">
+          <p class="font-bold underline text-sm cursor-pointer">
+            Proposer une modification
+          </p>
+          <p class="font-bold underline text-sm cursor-pointer">
+            Signaler un problème
+          </p>
         </div>
       </div>
     </div>
+
+    
+      <div class="absolute  z-[-1] -bottom-10 -right-10">
+        <img
+          src="../assets/images/logo_agenda.svg"
+          alt="logo-agenda"
+          class="w-100"
+        />
+    </div>
+
   </div>
 
+  <!-- Chargement -->
   <div v-else class="flex justify-center items-center h-64">
     <p class="text-gray-500">Chargement des détails...</p>
-  </div>
-
-  <div class="fixed bottom-0 -right-10 -mb-10 -ml-10">
-    <img
-      src="../assets/images/logo_agenda.svg"
-      alt="logo-agenda"
-      class="w-100"
-    />
   </div>
 </template>
 
