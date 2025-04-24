@@ -23,7 +23,7 @@
       <NuxtLink
           to="/dates"
           class="text-white font-semibold hover:underline mt-5 text-xl text-center"
-      >Mes dates</NuxtLink
+      >Mes rendus</NuxtLink
       >
       <NuxtLink
           to="/ics"

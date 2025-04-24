@@ -15,7 +15,7 @@
             />
           </div>
 
-          <div class="flex flex-col w-full md:w-1/2 mt-4 md:mt-0">
+          <div class="flex flex-col w-full md:w-1/2 mt-8 md:mt-0">
             <label class="font-bold" for="nom">Nom</label>
             <input
               class="border rounded-lg py-2 px-2"

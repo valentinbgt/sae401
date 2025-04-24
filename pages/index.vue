@@ -32,7 +32,7 @@
         <div
           class="text-white bg-indigo-500 rounded-2xl py-4 w-10/12 text-center font-bold text-xl hover:bg-indigo-600"
         >
-          Ajouter une date
+          Ajouter un rendu
         </div>
       </NuxtLink>
       <div

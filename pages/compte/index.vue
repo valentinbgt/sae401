@@ -2,28 +2,22 @@
   <TopNav :notif="true">Votre profil</TopNav>
   <div>
     <div>
-      <div class="fixed bottom-0 -right-10 -mb-10 -ml-10">
-        <img
-          src="../../assets/images/logo_agenda.svg"
-          alt="logo-agenda"
-          class="w-100"
-        />
-      </div>
-      <div class="flex items-center">
+      <ImageLogoBackground />
+      <div class="flex flex-col md:flex-row items-center">
         <ProfilePictureUpload
-          :currentImage="authStore.user?.profilePicture"
-          @update:image="updateProfilePicture"
-          @delete:image="deleteProfilePicture"
+            :currentImage="authStore.user?.profilePicture"
+            @update:image="updateProfilePicture"
+            @delete:image="deleteProfilePicture"
         />
-        <div class="ml-8">
-          <div class="flex">
+        <div class="mt-8 md:mt-0 md:ml-8 text-center md:text-left">
+          <div class="flex flex-col md:flex-row md:items-center">
             <div>
-              <p>Prenom :</p>
+              <p>Prénom :</p>
               <p class="mb-5 text-xl font-semibold">
                 {{ authStore.user?.prenom }}
               </p>
             </div>
-            <div class="ml-8">
+            <div class="mt-4 md:mt-0 md:ml-8">
               <p>Nom :</p>
               <p class="mb-5 text-xl font-semibold">
                 {{ authStore.user?.nom }}
@@ -34,16 +28,16 @@
           <p>Adresse email :</p>
           <p class="mb-5 text-xl font-semibold">{{ authStore.user?.email }}</p>
 
-          <div>
+          <div class="mt-4">
             <button
-              class="mb-2 cursor-pointer text-indigo-600 border border-indigo-600 hover:bg-indigo-600 hover:text-white text-lg font-medium px-5 py-3 rounded-xl "
+                class="mb-2 cursor-pointer text-indigo-600 border border-indigo-600 hover:bg-indigo-600 hover:text-white text-lg font-medium px-5 py-3 rounded-xl"
             >
               Modifier
             </button>
             <br />
             <button
-              class="cursor-pointer bg-indigo-600 text-white hover:text-indigo-600 border hover:border-indigo-600 hover:bg-white text-lg font-medium px-5 py-3 rounded-xl"
-              @click="logout"
+                class="cursor-pointer bg-indigo-600 text-white hover:text-indigo-600 border hover:border-indigo-600 hover:bg-white text-lg font-medium px-5 py-3 rounded-xl"
+                @click="logout"
             >
               Déconnexion
             </button>
@@ -58,6 +52,7 @@
 <script setup>
 import { useAuthStore } from "~/stores/auth";
 import { ref } from "vue";
+import ImageLogoBackground from "~/components/ImageLogoBackground.vue";
 
 const authStore = useAuthStore();
 const isLoading = ref(false);

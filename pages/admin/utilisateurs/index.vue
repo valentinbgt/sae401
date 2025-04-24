@@ -1,11 +1,11 @@
 <template>
-  <TopNav :notif="true">Gestion des Utilisateurs</TopNav>
+  <TopNav :notif="true">Gestion des utilisateurs</TopNav>
   <div class="p-4">
     <div class="flex justify-between items-center mb-6">
       <h1 class="text-2xl font-bold">Liste des utilisateurs</h1>
       <NuxtLink
         to="utilisateurs/nouveau"
-        class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
+        class="p-3 px-5 bg-indigo-500 font-semibold rounded-lg text-white cursor-pointer hover:bg-indigo-600 disabled:bg-gray-400"
       >
         Ajouter un utilisateur
       </NuxtLink>

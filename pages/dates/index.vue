@@ -1,13 +1,13 @@
 <template>
-  <TopNav :notif="true">Mes dates</TopNav>
+  <TopNav :notif="true">Mes rendus</TopNav>
   <p class="text-xl font-bold pb-5">
-    Vous pouvez consulter et ajouter des dates.
+    Vous pouvez consulter et ajouter des rendus.
   </p>
 
   <div class="mb-6 flex justify-end">
     <NuxtLink
       to="dates/nouvelle"
-      class="p-3 bg-indigo-500 font-semibold rounded-lg text-white cursor-pointer hover:bg-indigo-600 disabled:bg-gray-400"
+      class="p-3 px-5 bg-indigo-500 font-semibold rounded-lg text-white cursor-pointer hover:bg-indigo-600 disabled:bg-gray-400"
       >Ajouter une date</NuxtLink
     >
   </div>
@@ -17,7 +17,7 @@
   <div v-else>
     <div v-if="slots.length === 0" class="text-center">
       <p class="text-lg text-gray-500">
-        Vous n'avez pas encore ajouté de dates
+        Vous n'avez pas encore ajouté de rendus.
       </p>
     </div>
 

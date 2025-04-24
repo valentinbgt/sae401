@@ -1,14 +1,9 @@
 <template>
-  <div class="fixed bottom-0 z-[-1] -right-10 -mb-10 -ml-10">
-    <img
-      src="../../../assets/images/logo_agenda.svg"
-      alt="logo-agenda"
-      class="w-100"
-    />
-  </div>
+  <ImageLogoBackground />
   <TopNav :notif="true">Ajouter un module</TopNav>
-  <div class="w-full max-w-lg rounded-lg space-y-6">
-    <form @submit.prevent="submitForm" class="w-full space-y-6">
+    <form @submit.prevent="submitForm"
+          class="w-full md:w-3/4 mr-auto rounded-lg space-y-6"
+    >
       <div>
         <label for="type" class="block font-semibold">Type</label>
         <select
@@ -82,18 +77,18 @@
 
       <button
         type="submit"
-        class="hover:cursor-pointer w-full p-3 text-white bg-indigo-500 rounded-lg hover:bg-indigo-600"
+        class="w-full sm:w-2/4 md:w-2/4 lg:w-2/4 xl:w-2/4 2xl:w-1/4 p-3 text-white bg-indigo-500 cursor-pointer font-semibold rounded-lg hover:bg-indigo-600 disabled:bg-gray-400 mx-auto flex justify-center items-center"
         :disabled="loading || !(formData.number && formData.titre)"
       >
         {{ loading ? "Création en cours..." : "Ajouter le module" }}
       </button>
     </form>
-  </div>
 </template>
 
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import { useAuthStore } from "~/stores/auth";
+import ImageLogoBackground from "~/components/ImageLogoBackground.vue";
 
 const authStore = useAuthStore();
 const formData = ref({

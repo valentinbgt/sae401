@@ -1,5 +1,5 @@
 <template>
-  <div class="border rounded-lg">
+  <div class="border rounded-lg cursor-pointer">
     <button
         class="w-full text-left px-4 py-3 font-medium flex justify-between items-center hover:bg-gray-100 transition"
         @click="isOpen = !isOpen"

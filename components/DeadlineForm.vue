@@ -1,7 +1,7 @@
 <template>
   <form
     @submit.prevent="submitForm"
-    class="w-full max-w-xl mr-auto rounded-lg space-y-6"
+    class="w-full md:w-3/4 mr-auto rounded-lg space-y-6"
   >
     <div class="grid xl:grid-cols-3 lg:grid-cols-3 gap-4">
       <div class="col-span-1">
@@ -192,10 +192,11 @@
     </div>
 
     <button
-      type="submit"
-      class="w-full p-3 text-white bg-indigo-500 cursor-pointer font-semibold rounded-lg hover:bg-indigo-600 disabled:bg-gray-400"
+        type="submit"
+        class="w-full sm:w-2/4 md:w-2/4 lg:w-2/4 xl:w-2/4 2xl:w-1/4 p-3 text-white bg-indigo-500 cursor-pointer font-semibold rounded-lg hover:bg-indigo-600 disabled:bg-gray-400 mx-auto flex justify-center items-center"
+        :disabled="loading || !(formData.titre && formData.module && formData.timestamp && formData.lieu && formData.type && formData.prof)"
     >
-      Ajouter un rendu
+      {{ loading ? "Création en cours..." : "Ajouter le rendu" }}
     </button>
   </form>
 </template>
@@ -220,6 +221,7 @@ const formData = ref({
   etendue: "TP",
 });
 
+const loading = ref(false);
 const modules = ref([]);
 const teachers = ref([]);
 const lieuDetailsLabel = ref("Détails du lieu");
