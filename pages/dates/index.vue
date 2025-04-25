@@ -8,7 +8,7 @@
     <NuxtLink
       to="dates/nouvelle"
       class="p-3 px-5 bg-indigo-500 font-semibold rounded-lg text-white cursor-pointer hover:bg-indigo-600 disabled:bg-gray-400"
-      >Ajouter une date</NuxtLink
+      >Ajouter un rendu</NuxtLink
     >
   </div>
 
