@@ -45,19 +45,50 @@
 
       <!-- Navigation buttons -->
       <div class="flex justify-between w-10/12 mt-6">
+        <!-- Bouton Précédent -->
         <button
           @click="navigatePrevious"
-          class="bg-indigo-500 text-white px-4 py-2 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed"
+          class="flex items-center bg-indigo-500 text-white px-4 py-2 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-indigo-600"
           :disabled="!hasPreviousDeadlines"
         >
-          Précédent
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6 mr-2"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+          <span class="hidden md:inline">Précédent</span>
         </button>
+
+        <!-- Bouton Suivant -->
         <button
           @click="navigateNext"
-          class="bg-indigo-500 text-white px-4 py-2 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed"
+          class="flex items-center bg-indigo-500 text-white px-4 py-2 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-indigo-600"
           :disabled="!hasMoreDeadlines"
         >
-          Suivant
+          <span class="hidden md:inline">Suivant</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6 ml-2"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 5l7 7-7 7"
+            />
+          </svg>
         </button>
       </div>
     </div>
