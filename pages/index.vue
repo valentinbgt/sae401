@@ -7,7 +7,22 @@
       class="border rounded-4xl py-6 flex items-center flex-col col-span-2 row-span-2"
     >
       <h2 class="font-bold text-2xl">Prochains rendus</h2>
+      <div v-if="slots.length === 0" class="mt-4">
+        <p class="text-red-500">Aucun élément à afficher pour le moment.</p>
+
+        <NuxtLink
+          to="dates/nouvelle"
+          class="w-full flex items-center flex-col pt-4"
+        >
+          <div
+            class="text-white bg-indigo-500 rounded-2xl py-4 w-10/12 text-center font-bold text-xl hover:bg-indigo-600"
+          >
+            Ajouter un rendu
+          </div>
+        </NuxtLink>
+      </div>
       <div
+        v-else
         v-for="(dayData, i) in slots"
         :key="i"
         class="w-full flex flex-col items-center"
