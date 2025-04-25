@@ -94,6 +94,7 @@
     </div>
     <div class="border rounded-4xl py-6 flex items-center flex-col">
       <h2 class="font-bold text-2xl">Calendrier</h2>
+      <CalendarMonth :event-dates="eventDates" @day-selected="onDaySelected" />
     </div>
     <div class="border rounded-4xl py-6 flex items-center flex-col">
       <h2 class="font-bold text-2xl mb-12">Actions</h2>
@@ -116,10 +117,14 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import { useAuthStore } from "~/stores/auth";
+import { useRouter } from "vue-router";
+import CalendarMonth from "~/components/CalendarMonth.vue";
 
 const authStore = useAuthStore();
+const router = useRouter();
 
 const slots = ref([]);
+const eventDates = ref([]);
 
 const displayIndex = ref(0);
 const firstNonPassedIndex = ref(0); // Store the index of the first non-passed deadline
@@ -242,6 +247,61 @@ const timestampToTime = (date) => {
     .replace(":", "h");
 };
 
+// Navigate to day view when a date is clicked
+function onDaySelected(day) {
+  const formattedDate = timestampToDate(new Date(day));
+
+  var dayElement = slots.value.find((slot) => slot[formattedDate]);
+
+  if (!dayElement) return;
+
+  // Get all slots for this day
+  const daySlots = dayElement[formattedDate].daySlots;
+
+  // Determine if these are passed deadlines
+  const arePassed = daySlots[0].passed;
+
+  // If we're trying to view passed deadlines but currently in upcoming view
+  // OR if we're trying to view upcoming deadlines but currently in passed view
+  if (
+    (arePassed && displayIndex.value >= firstNonPassedIndex.value) ||
+    (!arePassed && displayIndex.value < firstNonPassedIndex.value)
+  ) {
+    // Switch views by setting the appropriate displayIndex
+    displayIndex.value = arePassed
+      ? Math.max(0, firstNonPassedIndex.value - 4)
+      : firstNonPassedIndex.value;
+  }
+
+  // Count deadlines to find the correct page
+  let counter = 0;
+  let foundIndex = -1;
+  let targetId = daySlots[0].id;
+
+  // Loop through all days to find which page contains our deadline
+  for (const dayData of slots.value) {
+    const dayKey = Object.keys(dayData)[0];
+    for (const slot of dayData[dayKey].daySlots) {
+      // Only count deadlines that match our view (passed or upcoming)
+      if ((arePassed && slot.passed) || (!arePassed && !slot.passed)) {
+        if (slot.id === targetId) {
+          foundIndex = counter;
+          break;
+        }
+        counter++;
+      }
+    }
+    if (foundIndex !== -1) break;
+  }
+
+  if (foundIndex !== -1) {
+    // Set display index to the correct page (each page shows 4 items)
+    displayIndex.value = arePassed
+      ? Math.max(0, Math.floor(foundIndex / 4) * 4)
+      : firstNonPassedIndex.value + Math.floor(foundIndex / 4) * 4;
+  }
+}
+
 // Charger les deadlines depuis l'API
 onMounted(async () => {
   try {
@@ -262,6 +322,15 @@ onMounted(async () => {
 
     if (response.status === "success") {
       const deadlines = response.data;
+
+      // Extract unique dates for the calendar
+      eventDates.value = Array.from(
+        new Set(
+          deadlines.map(
+            (e) => new Date(e.timestamp).toISOString().split("T")[0]
+          )
+        )
+      );
 
       // Organisation des deadlines par jour
       let lastDay = "";
