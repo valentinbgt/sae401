@@ -23,6 +23,7 @@ export default defineEventHandler(async (event) => {
         id: true,
         nom: true,
         prenom: true,
+        semestre: true, // Added semestre to select
       },
     });
 
@@ -33,10 +34,20 @@ export default defineEventHandler(async (event) => {
       });
     }
 
-    // Get deadlines for this user
+    // Calculate semester group for filtering
+    const userSemester = user.semestre || 1;
+    const semesterGroup = Math.ceil(userSemester / 2);
+    const relevantSemesters = [semesterGroup * 2 - 1, semesterGroup * 2];
+
+    // Get deadlines for this user with semester scoping
     const deadlines = await prisma.deadline.findMany({
       where: {
-        OR: [{ auteur: user.id }, { etendue: "ALL" }],
+        AND: [
+          { moduleRel: { semestre: { in: relevantSemesters } } },
+          {
+            OR: [{ auteur: user.id }, { etendue: "ALL" }],
+          },
+        ],
       },
       include: {
         moduleRel: true,
