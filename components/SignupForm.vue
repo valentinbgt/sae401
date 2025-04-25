@@ -3,7 +3,9 @@
     <div class="mx-14">
       <div class="space-y-10">
         <!-- Ligne pour Prénom et Nom -->
-        <div class="flex flex-col md:flex-row w-full md:justify-between md:space-x-6">
+        <div
+          class="flex flex-col md:flex-row w-full md:justify-between md:space-x-6"
+        >
           <div class="flex flex-col w-full md:w-1/2">
             <label class="font-bold" for="prenom">Prénom</label>
             <input
@@ -69,9 +71,7 @@
       <!-- Lien vers la connexion -->
       <div class="mt-4 text-center">
         Déjà un compte ?
-        <NuxtLink
-          class="underline text-indigo-500 font-semibold"
-          to="connexion"
+        <NuxtLink class="underline text-indigo-500 font-semibold" to="connexion"
           >Se connecter</NuxtLink
         >
       </div>
@@ -81,23 +81,43 @@
 
 <script setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { useAuthStore } from "~/stores/auth";
 
-const formData = ref({
-  nom: "",
-  prenom: "",
-  email: "",
-  password: "",
-});
+const authStore = useAuthStore();
+const router = useRouter();
+const formData = ref({ nom: "", prenom: "", email: "", password: "" });
+const loading = ref(false);
+const error = ref("");
 
 const submitSignup = async () => {
+  error.value = "";
+  loading.value = true;
   try {
     const response = await $fetch("/api/auth/signup", {
       method: "POST",
       body: formData.value,
     });
-    console.log("Inscription réussie:", response);
-  } catch (error) {
-    console.error("Erreur lors de l'inscription:", error);
+    if (response.status === "success") {
+      // Auto-login after signup
+      const ok = await authStore.login({
+        email: formData.value.email,
+        password: formData.value.password,
+      });
+      if (ok) {
+        router.push("/");
+      } else {
+        error.value = "Erreur lors de la connexion après inscription";
+      }
+    } else {
+      error.value = response.message || "Erreur lors de l'inscription";
+    }
+  } catch (err) {
+    console.error("Erreur lors de l'inscription:", err);
+    error.value =
+      err.data?.message || "Une erreur est survenue lors de l'inscription";
+  } finally {
+    loading.value = false;
   }
 };
 </script>
