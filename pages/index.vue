@@ -35,6 +35,7 @@
           :title="slot.title"
           :sub-title="slot.subTitle"
           :deadline-id="slot.id"
+          :passed="slot.passed"
         />
       </div>
     </div>
@@ -121,6 +122,13 @@ onMounted(async () => {
 
         let elementDay = timestampToDate(e.timestamp);
 
+        //if day is passed
+        //currente date (hours and minutes to 0)
+        let currentDay = new Date();
+        currentDay.setHours(0, 0, 0, 0);
+
+        let passed = new Date(e.timestamp) < currentDay;
+
         if (elementDay != lastDay) {
           // Create new day entry
           slots.value.push({
@@ -131,6 +139,7 @@ onMounted(async () => {
                   time,
                   title,
                   subTitle,
+                  passed,
                 },
               ],
             },
@@ -144,6 +153,7 @@ onMounted(async () => {
             time,
             title,
             subTitle,
+            passed,
           });
         }
       });
