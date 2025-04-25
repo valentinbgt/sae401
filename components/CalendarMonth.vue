@@ -2,7 +2,7 @@
   <div class="calendar-month w-full max-w-sm">
     <!-- Calendar header with month and navigation -->
     <div class="flex justify-between items-center mb-4">
-      <button @click="prevMonth" class="p-1 hover:bg-gray-100 rounded">
+      <button @click="prevMonth" class="p-1 hover:bg-gray-100 rounded cursor-pointer">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="h-5 w-5"
@@ -19,7 +19,7 @@
       <h3 class="font-medium text-center">
         {{ currentMonthName }} {{ currentYear }}
       </h3>
-      <button @click="nextMonth" class="p-1 hover:bg-gray-100 rounded">
+      <button @click="nextMonth" class="p-1 hover:bg-gray-100 rounded cursor-pointer">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="h-5 w-5"

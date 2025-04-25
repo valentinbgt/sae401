@@ -62,7 +62,7 @@
           <p class="mb-4">Vous n'avez pas encore de lien de calendrier ICS.</p>
           <button
               @click="generateToken"
-              class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-800 transition-colors inline-flex items-center"
+              class="cursor-pointer bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-800 transition-colors inline-flex items-center"
               :disabled="generating"
           >
             <svg v-if="generating" class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">

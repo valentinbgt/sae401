@@ -48,7 +48,7 @@
         <!-- Bouton Précédent -->
         <button
           @click="navigatePrevious"
-          class="flex items-center bg-indigo-500 text-white px-4 py-2 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-indigo-600"
+          class="cursor-pointer flex items-center bg-indigo-500 text-white px-4 py-2 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-indigo-600"
           :disabled="!hasPreviousDeadlines"
         >
           <svg
@@ -71,7 +71,7 @@
         <!-- Bouton Suivant -->
         <button
           @click="navigateNext"
-          class="flex items-center bg-indigo-500 text-white px-4 py-2 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-indigo-600"
+          class="cursor-pointer flex items-center bg-indigo-500 text-white px-4 py-2 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-indigo-600"
           :disabled="!hasMoreDeadlines"
         >
           <span class="hidden md:inline">Suivant</span>
