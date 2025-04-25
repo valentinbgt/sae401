@@ -283,7 +283,7 @@ const filteredModules = computed(() => {
 });
 
 const filteredFormats = computed(() => {
-  const formats = ["pdf", "jpg", "png", "doc/docx", "ppt/pptx", "zip", "autre"];
+  const formats = ["pdf", "jpg", "png", "doc/docx", "ppt/pptx", "zip", "Autre"];
   if (!formData.value.type) return formats;
   return formats.filter((format) =>
     format.toLowerCase().includes(formData.value.type.toLowerCase())

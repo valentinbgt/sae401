@@ -70,13 +70,7 @@
     </div>
 
     
-      <div class="absolute  z-[-1] -bottom-10 -right-10">
-        <img
-          src="../assets/images/logo_agenda.svg"
-          alt="logo-agenda"
-          class="w-100"
-        />
-    </div>
+     <ImageLogoBackground/>
 
   </div>
 
@@ -102,7 +96,7 @@ const formatDate = (timestamp) => {
   return date
     .toLocaleDateString("fr-FR", {
       day: "2-digit",
-      month: "numeric",
+      month: "2-digit",
       year: "numeric",
     })
     .replace(/^\w/, (c) => c.toUpperCase());
