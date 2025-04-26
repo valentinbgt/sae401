@@ -1,6 +1,6 @@
 <template>
   <TopNav :notif="true">Gestion des modules</TopNav>
-  <div class="p-4 ">
+  <div class="p-4">
     <div class="flex justify-between items-center mb-6">
       <h1 class="text-2xl font-bold">Liste des modules</h1>
       <NuxtLink
@@ -153,6 +153,7 @@
 </template>
 
 <script setup>
+definePageMeta({ middleware: "admin" });
 import { ref, onMounted, computed } from "vue";
 import { useAuthStore } from "~/stores/auth";
 
