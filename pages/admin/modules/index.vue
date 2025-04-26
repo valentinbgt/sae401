@@ -1,9 +1,11 @@
 <template>
   <TopNav :notif="true">Gestion des modules</TopNav>
   <div class="p-4">
-    <!-- Titre et bouton Ajouter -->
-    <div class="flex flex-wrap justify-between items-center mb-6 gap-4">
-      <h1 class="text-xl sm:text-2xl font-bold">Liste des modules</h1>
+
+=======
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-2xl font-bold">Liste des modules</h1>
+>>>>>>> 7b334186bee2aca70f9ecaddf2b7174993f0338b
       <NuxtLink
         to="modules/nouveau"
         class="p-3 bg-indigo-500 font-semibold rounded-lg text-white cursor-pointer hover:bg-indigo-600 disabled:bg-gray-400 text-sm sm:text-base"
@@ -157,6 +159,7 @@
 </template>
 
 <script setup>
+definePageMeta({ middleware: "admin" });
 import { ref, onMounted, computed } from "vue";
 import { useAuthStore } from "~/stores/auth";
 

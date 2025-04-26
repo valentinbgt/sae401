@@ -192,9 +192,19 @@
     </div>
 
     <button
-        type="submit"
-        class="w-full sm:w-2/4 md:w-2/4 lg:w-2/4 xl:w-2/4 2xl:w-1/4 p-3 text-white bg-indigo-500 cursor-pointer font-semibold rounded-lg hover:bg-indigo-600 disabled:bg-gray-400 mx-auto flex justify-center items-center"
-        :disabled="loading || !(formData.titre && formData.module && formData.timestamp && formData.lieu && formData.type && formData.prof)"
+      type="submit"
+      class="w-full sm:w-2/4 md:w-2/4 lg:w-2/4 xl:w-2/4 2xl:w-1/4 p-3 text-white bg-indigo-500 cursor-pointer font-semibold rounded-lg hover:bg-indigo-600 disabled:bg-gray-400 mx-auto flex justify-center items-center"
+      :disabled="
+        loading ||
+        !(
+          formData.titre &&
+          formData.module &&
+          formData.timestamp &&
+          formData.lieu &&
+          formData.type &&
+          formData.prof
+        )
+      "
     >
       {{ loading ? "Création en cours..." : "Ajouter le rendu" }}
     </button>
@@ -311,11 +321,11 @@ const updateLieuDetailsPlaceholder = () => {
   switch (formData.value.lieu) {
     case "Moodle":
       lieuDetailsLabel.value = "Lien Moodle";
-      lieuDetailsPlaceholder.value = "https://moodle.iutmmi.fr/...";
+      lieuDetailsPlaceholder.value = "https://cours.univ-reims.fr/";
       break;
     case "Email":
       lieuDetailsLabel.value = "Adresse email";
-      lieuDetailsPlaceholder.value = "example@example.com";
+      lieuDetailsPlaceholder.value = "john.doe@univ-reims.fr";
       break;
     case "Oral":
       lieuDetailsLabel.value = "Salle";
