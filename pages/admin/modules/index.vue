@@ -1,20 +1,21 @@
 <template>
   <TopNav :notif="true">Gestion des modules</TopNav>
-  <div class="p-4 ">
-    <div class="flex justify-between items-center mb-6">
-      <h1 class="text-2xl font-bold">Liste des modules</h1>
+  <div class="p-4">
+    <!-- Titre et bouton Ajouter -->
+    <div class="flex flex-wrap justify-between items-center mb-6 gap-4">
+      <h1 class="text-xl sm:text-2xl font-bold">Liste des modules</h1>
       <NuxtLink
         to="modules/nouveau"
-        class="p-3 bg-indigo-500 font-semibold rounded-lg text-white cursor-pointer hover:bg-indigo-600 disabled:bg-gray-400"
+        class="p-3 bg-indigo-500 font-semibold rounded-lg text-white cursor-pointer hover:bg-indigo-600 disabled:bg-gray-400 text-sm sm:text-base"
       >
         Ajouter un module
       </NuxtLink>
     </div>
 
-    <!-- Search and filter section -->
+    <!-- Section de recherche et filtres -->
     <div class="bg-white p-4 mb-6 rounded shadow">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <!-- Search bar -->
+        <!-- Barre de recherche -->
         <div>
           <label
             for="search"
@@ -30,7 +31,7 @@
           />
         </div>
 
-        <!-- Semester filter -->
+        <!-- Filtre par semestre -->
         <div>
           <label
             for="semestre"
@@ -52,7 +53,7 @@
           </select>
         </div>
 
-        <!-- WR/WS filter -->
+        <!-- Filtre par type -->
         <div>
           <label
             for="moduleType"
@@ -72,12 +73,15 @@
       </div>
     </div>
 
+    <!-- Chargement ou erreur -->
     <div v-if="loading" class="text-center py-8">
       <LoadingOverlay />
     </div>
     <div v-else-if="error" class="text-red-500 text-center py-8">
       {{ error }}
     </div>
+
+    <!-- Tableau des modules -->
     <div v-else class="overflow-x-auto">
       <div
         v-if="filteredModules.length === 0"
@@ -85,7 +89,7 @@
       >
         Aucun module ne correspond aux critères de recherche
       </div>
-      <table v-else class="min-w-full bg-white border border-gray-200">
+      <table v-else class="min-w-full bg-white border border-gray-200 text-sm sm:text-base">
         <thead>
           <tr class="bg-gray-100">
             <th
