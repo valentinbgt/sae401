@@ -5,9 +5,9 @@
       <ImageLogoBackground />
       <div class="flex flex-col md:flex-row items-center">
         <ProfilePictureUpload
-            :currentImage="authStore.user?.profilePicture"
-            @update:image="updateProfilePicture"
-            @delete:image="deleteProfilePicture"
+          :currentImage="authStore.user?.profilePicture"
+          @update:image="updateProfilePicture"
+          @delete:image="deleteProfilePicture"
         />
         <div class="mt-8 md:mt-0 md:ml-8 text-center md:text-left">
           <div class="flex flex-col md:flex-row md:items-center">
@@ -29,15 +29,15 @@
           <p class="mb-5 text-xl font-semibold">{{ authStore.user?.email }}</p>
 
           <div class="mt-4">
-            <button
+            <!-- <button
                 class="mb-2 cursor-pointer text-indigo-600 border border-indigo-600 hover:bg-indigo-600 hover:text-white text-lg font-medium px-5 py-3 rounded-xl"
             >
               Modifier
-            </button>
+            </button> -->
             <br />
             <button
-                class="cursor-pointer bg-indigo-600 text-white hover:text-indigo-600 border hover:border-indigo-600 hover:bg-white text-lg font-medium px-5 py-3 rounded-xl"
-                @click="logout"
+              class="cursor-pointer bg-indigo-600 text-white hover:text-indigo-600 border hover:border-indigo-600 hover:bg-white text-lg font-medium px-5 py-3 rounded-xl"
+              @click="logout"
             >
               Déconnexion
             </button>

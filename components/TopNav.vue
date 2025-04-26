@@ -15,7 +15,7 @@
           <img src="/icons/admin.svg" alt="Admin Icon" class="w-8 h-8" />
         </NuxtLink>
       </template>
-      <NotificationBell :new="notif" />
+      <!-- <NotificationBell :new="notif" /> -->
       <NuxtLink to="/compte" class="flex items-center justify-center">
         <div
           class="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center"
