@@ -4,7 +4,7 @@
     class="flex flex-col md:grid md:grid-cols-3 gap-8 md:grid-rows-2 p-4 md:p-8"
   >
     <div
-      class="border rounded-4xl py-6 flex items-center flex-col col-span-2 row-span-2"
+      class="border rounded-4xl py-6 flex items-center flex-col col-span-2 row-span-2 p-1 md:p-1"
     >
       <h2 class="font-bold text-2xl">
         {{ isShowingPassedDeadlines ? "Rendus passés" : "Prochains rendus" }}
@@ -43,7 +43,7 @@
         </div>
       </div>
 
-      <!-- Navigation buttons -->
+
       <div class="flex justify-between w-10/12 mt-6">
         <!-- Bouton Précédent -->
         <button
@@ -68,7 +68,7 @@
           <span class="hidden md:inline">Précédent</span>
         </button>
 
-        <!-- Bouton Suivant -->
+
         <button
           @click="navigateNext"
           class="cursor-pointer flex items-center bg-indigo-500 text-white px-4 py-2 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-indigo-600"

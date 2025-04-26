@@ -53,7 +53,7 @@
           id="timestamp"
           v-model="formData.timestamp"
           required
-          class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
+          class="w-full mt-1 p-2 border border-gray-300 rounded-lg bg-white"
         />
       </div>
     </div>
@@ -66,7 +66,7 @@
             id="lieu"
             v-model="formData.lieu"
             required
-            class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
+            class="w-full mt-1 p-2 border border-gray-300 rounded-lg bg-white"
             @focus="showLieuOptions = true"
             @blur="handleBlur('lieu')"
             @input="updateLieuDetailsPlaceholder"
@@ -80,7 +80,7 @@
             <div
               v-for="lieu in filteredLieux"
               :key="lieu"
-              class="p-2 hover:bg-gray-100 cursor-pointer"
+              class="p-2 hover:bg-gray-100 cursor-pointer bg-white"
               @mousedown.prevent="
                 selectOption('lieu', lieu);
                 updateLieuDetailsPlaceholder();
@@ -101,7 +101,7 @@
           id="lieuDetails"
           v-model="formData.lieuDetails"
           :placeholder="lieuDetailsPlaceholder"
-          class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
+          class="w-full mt-1 p-2 border border-gray-300 rounded-lg bg-white"
         />
       </div>
     </div>
@@ -114,7 +114,7 @@
             id="format"
             v-model="formData.type"
             required
-            class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
+            class="w-full mt-1 p-2 border border-gray-300 rounded-lg bg-white"
             @focus="showFormatOptions = true"
             @blur="handleBlur('format')"
             type="text"
@@ -127,7 +127,7 @@
             <div
               v-for="format in filteredFormats"
               :key="format"
-              class="p-2 hover:bg-gray-100 cursor-pointer"
+              class="p-2 hover:bg-gray-100 cursor-pointer bg-white"
               @mousedown.prevent="selectOption('format', format)"
             >
               {{ format }}
@@ -142,7 +142,7 @@
           id="tp"
           v-model="formData.etendue"
           required
-          class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
+          class="w-full mt-1 p-2 border border-gray-300 rounded-lg bg-white"
         >
           <option value="TP">TP</option>
           <option value="TD">TD</option>
@@ -157,7 +157,7 @@
             id="prof"
             v-model="formData.prof"
             required
-            class="w-full mt-1 p-2 border border-gray-300 rounded-lg"
+            class="w-full mt-1 p-2 border border-gray-300 rounded-lg bg-white"
             @focus="showTeacherOptions = true"
             @blur="handleBlur('teacher')"
             type="text"
@@ -170,7 +170,7 @@
             <div
               v-for="teacher in filteredTeachers"
               :key="teacher.id"
-              class="p-2 hover:bg-gray-100 cursor-pointer"
+              class="p-2 hover:bg-gray-100 cursor-pointer bg-white"
               @mousedown.prevent="
                 selectOption('teacher', `${teacher.prenom} ${teacher.nom}`)
               "
@@ -187,7 +187,7 @@
       <textarea
         id="description"
         v-model="formData.description"
-        class="w-full mt-1 p-2 border border-gray-300 rounded-lg h-28"
+        class="w-full mt-1 p-2 border border-gray-300 rounded-lg h-28 bg-white"
       ></textarea>
     </div>
 

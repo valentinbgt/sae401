@@ -51,24 +51,16 @@
       </div>
 
       <!-- Boutons -->
-      <div class="flex flex-col lg:flex-row justify-between mt-6 mx-4 lg:mx-12 space-y-4 lg:space-y-0">
-        <button
-          @click="$emit('close')"
-          class="px-6 py-3 bg-indigo-500 text-white rounded-lg cursor-pointer hover:bg-indigo-600 disabled:bg-gray-400 font-semibold"
-        >
-          Retour
-        </button>
-        <div class="flex flex-col text-center lg:text-left">
-          <p class="font-bold underline text-sm cursor-pointer">
-            Proposer une modification
-          </p>
-          <p class="font-bold underline text-sm cursor-pointer">
-            Signaler un problème
-          </p>
-        </div>
-      </div>
-    </div>
-
+      <div class="flex flex-col lg:flex-row justify-center mt-6 mx-4 lg:mx-12 space-y-4 lg:space-y-0">
+  <button
+    @click="$emit('close')"
+    class="w-full sm:w-1/2 lg:w-1/3 px-6 py-3 bg-indigo-500 text-white rounded-lg cursor-pointer hover:bg-indigo-600 disabled:bg-gray-400 font-semibold"
+  >
+    Retour
+  </button>
+</div>
+</div>
+    <!-- Image de fond -->
     
      <ImageLogoBackground/>
 

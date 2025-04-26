@@ -2,7 +2,7 @@
   <TopNav :notif="true">Synchroniser un calendrier</TopNav>
   <ImageLogoBackground />
   <div class="container mr-auto mt-8 px-4">
-    <div class="rounded-lg border p-6 max-w-3xl">
+    <div class="rounded-lg border p-6 max-w-3xl bg-white">
       <div v-if="loading" class="flex justify-center my-8">
         <LoadingOverlay />
       </div>
