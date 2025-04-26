@@ -53,6 +53,20 @@
           />
         </div>
 
+        <!-- Semestre -->
+        <div class="flex flex-col w-full">
+          <label class="font-bold" for="semestre">Semestre</label>
+          <select
+            id="semestre"
+            v-model="formData.semestre"
+            required
+            class="border rounded-lg py-2 px-2"
+          >
+            <option disabled value="">Sélectionnez un semestre</option>
+            <option v-for="n in 6" :key="n" :value="n">S{{ n }}</option>
+          </select>
+        </div>
+
         <!-- Message d'erreur -->
         <div v-if="error" class="text-red-500">
           {{ error }}
@@ -86,7 +100,8 @@ import { useAuthStore } from "~/stores/auth";
 
 const authStore = useAuthStore();
 const router = useRouter();
-const formData = ref({ nom: "", prenom: "", email: "", password: "" });
+// include semestre in form data
+const formData = ref({ nom: "", prenom: "", email: "", password: "", semestre: "" });
 const loading = ref(false);
 const error = ref("");
 
@@ -100,10 +115,7 @@ const submitSignup = async () => {
     });
     if (response.status === "success") {
       // Auto-login after signup
-      const ok = await authStore.login({
-        email: formData.value.email,
-        password: formData.value.password,
-      });
+      const ok = await authStore.login({ email: formData.value.email, password: formData.value.password });
       if (ok) {
         router.push("/");
       } else {
@@ -114,8 +126,7 @@ const submitSignup = async () => {
     }
   } catch (err) {
     console.error("Erreur lors de l'inscription:", err);
-    error.value =
-      err.data?.message || "Une erreur est survenue lors de l'inscription";
+    error.value = err.data?.message || "Une erreur est survenue lors de l'inscription";
   } finally {
     loading.value = false;
   }
