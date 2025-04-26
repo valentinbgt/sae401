@@ -34,7 +34,8 @@
             >
               Modifier
             </button> -->
-            <br />
+            <p>Semestre : </p>
+            <p class="mb-5 text-xl font-semibold">{{ authStore.user?.semestre }}</p>
             <button
               class="cursor-pointer bg-indigo-600 text-white hover:text-indigo-600 border hover:border-indigo-600 hover:bg-white text-lg font-medium px-5 py-3 rounded-xl"
               @click="logout"
