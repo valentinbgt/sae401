@@ -1,40 +1,41 @@
 # Image de Départ
 FROM node:lts AS builder
 
-COPY . /app
-
-# Create and set working directory
 WORKDIR /app
+
+# Copy package files first for better caching
+COPY package*.json ./
+COPY prisma ./prisma/
 
 # Install dependencies
 RUN npm ci
 
-# Update schema.prisma to add the correct binary target
-#RUN sed -i 's/provider *= *"prisma-client-js"/provider = "prisma-client-js"\n  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]/' ./prisma/schema.prisma
-
 # Generate Prisma client
-RUN npx prisma generate --schema=./prisma/schema.prisma
+RUN npx prisma generate
+
+# Copy the rest of the application
+COPY . .
 
 # Build the application
 RUN npm run build
 
 
-FROM node:18-slim AS runner
+FROM node:lts-slim AS runner
 
 WORKDIR /app
 
-COPY --from=builder /app/.output /app
-COPY --from=builder /app/prisma /app/prisma
-COPY --from=builder /app/node_modules/.prisma /app/node_modules/.prisma
-
+# Install OpenSSL for Prisma
 RUN apt-get update \
     && apt-get install -y openssl \
     && rm -rf /var/lib/apt/lists/*
 
-RUN npx prisma generate --schema=./prisma/schema.prisma
+# Copy built application
+COPY --from=builder /app/.output ./
+COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
+COPY --from=builder /app/prisma ./prisma
 
 ENV NODE_ENV=production
 
 EXPOSE 3000
 
-CMD node /app/server/index.mjs
+CMD ["node", "server/index.mjs"]
